@@ -64,7 +64,7 @@ const HeroSection = () => {
           </div>
           <div className="w-px h-8 bg-border" />
           <div className="text-center">
-            <p className="text-sm font-bold gold-text">$5M+</p>
+            <p className="text-sm font-bold gold-text-shine">$5M+</p>
             <p className="text-[10px] text-muted-foreground uppercase tracking-wider">Capital Secured</p>
           </div>
           <div className="w-px h-8 bg-border" />
