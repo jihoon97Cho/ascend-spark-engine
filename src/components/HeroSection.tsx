@@ -41,9 +41,9 @@ const HeroSection = () => {
           className="text-4xl sm:text-5xl lg:text-7xl font-extrabold leading-[1.1] mb-6"
         >
           We'll Help You Secure Up To{" "}
-          <span className="gold-text">$150,000</span>
-          <br />
-          at <span className="gold-text">0% Interest</span>
+           <span className="gold-text-shine">$150,000</span>
+           <br />
+           at <span className="gold-text-shine">0% Interest</span>
         </motion.h1>
 
         <motion.p
@@ -64,7 +64,7 @@ const HeroSection = () => {
           </div>
           <div className="w-px h-8 bg-border" />
           <div className="text-center">
-            <p className="text-sm font-bold gold-text">$5M+</p>
+            <p className="text-sm font-bold gold-text-shine">$5M+</p>
             <p className="text-[10px] text-muted-foreground uppercase tracking-wider">Capital Secured</p>
           </div>
           <div className="w-px h-8 bg-border" />
@@ -101,7 +101,7 @@ const HeroSection = () => {
               transition={{ delay: 0.8 + i * 0.08, duration: 0.4 }}
               className="flex items-center gap-2 text-sm text-muted-foreground"
             >
-              <span className="gold-text">→</span>
+              <span className="gold-text-shine">→</span>
               <span>{text}</span>
             </motion.div>
           ))}
