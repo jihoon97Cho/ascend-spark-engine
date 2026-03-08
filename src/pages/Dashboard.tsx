@@ -136,6 +136,9 @@ const Dashboard = () => {
             <Button onClick={handlePrint} variant="outline" size="sm" className="print:hidden">
               <Printer size={16} className="mr-1" /> Print Report
             </Button>
+            <Button onClick={handleSignOut} variant="ghost" size="sm" className="text-muted-foreground print:hidden">
+              <LogOut size={16} className="mr-1" /> Sign Out
+            </Button>
           </div>
         </div>
       </header>
