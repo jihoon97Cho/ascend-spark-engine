@@ -18,6 +18,7 @@ import {
   seedDemoData, type LeadEvent, type FunnelMetrics
 } from "@/lib/leadTracking";
 import logo from "@/assets/logo.png";
+import { useAuth } from "@/hooks/useAuth";
 
 type DateRange = 'today' | 'last7' | 'last30' | 'month' | 'year' | 'all';
 
