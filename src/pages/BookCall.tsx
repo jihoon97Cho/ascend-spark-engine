@@ -7,15 +7,32 @@ const BookCall = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    // Load the form embed script
     const script = document.createElement("script");
     script.src = "https://link.msgsndr.com/js/form_embed.js";
     script.async = true;
     document.body.appendChild(script);
+
+    // Listen for survey submission message from the iframe
+    const handleMessage = (event: MessageEvent) => {
+      // LeadConnector posts messages on form submission
+      if (
+        event.data &&
+        (event.data.type === "form:submit" ||
+          event.data.type === "survey:submit" ||
+          event.data === "form_submitted" ||
+          (typeof event.data === "string" && event.data.includes("submit")))
+      ) {
+        navigate("/book-call");
+      }
+    };
+
+    window.addEventListener("message", handleMessage);
+
     return () => {
       document.body.removeChild(script);
+      window.removeEventListener("message", handleMessage);
     };
-  }, []);
+  }, [navigate]);
 
   return (
     <div className="min-h-screen bg-background flex flex-col">
