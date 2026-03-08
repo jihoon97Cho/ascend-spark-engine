@@ -99,6 +99,16 @@
     box-shadow: 0 0 30px hsl(45 100% 50% / 0.15), 0 0 60px hsl(45 100% 50% / 0.05);
   }
 
+  .card-hover {
+    @apply transition-all duration-300;
+  }
+
+  .card-hover:hover {
+    transform: translateY(-4px);
+    border-color: hsl(45 100% 50% / 0.3);
+    box-shadow: 0 8px 30px hsl(45 100% 50% / 0.08), 0 0 0 1px hsl(45 100% 50% / 0.1);
+  }
+
   .btn-shine {
     position: relative;
     overflow: hidden;

@@ -86,7 +86,7 @@ const TestimonialsSection = () => (
         {[...testimonials, ...testimonials].map(({ name, role, result, quote, timeline }, i) => (
           <div
             key={`${name}-${i}`}
-            className="bg-card border border-border rounded-2xl p-7 w-[340px] flex-shrink-0 relative"
+            className="bg-card border border-border rounded-2xl p-7 w-[340px] flex-shrink-0 relative card-hover"
           >
             <div className="flex items-center gap-1 mb-4">
               {[...Array(5)].map((_, j) => (

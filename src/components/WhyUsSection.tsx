@@ -64,7 +64,7 @@ const WhyUsSection = () => (
           <motion.div
             key={title}
             variants={item}
-            className="bg-card border border-border rounded-2xl p-8 hover:border-primary/30 transition-all duration-300 group"
+            className="bg-card border border-border rounded-2xl p-8 card-hover group"
           >
             <div className="w-12 h-12 rounded-xl gold-gradient flex items-center justify-center mb-5 group-hover:scale-110 transition-transform duration-300">
               <Icon size={22} className="text-primary-foreground" />

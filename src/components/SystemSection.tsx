@@ -64,7 +64,7 @@ const SystemSection = () => (
           <motion.div
             key={title}
             variants={item}
-            className="bg-card border border-border rounded-2xl p-7 hover:border-primary/30 transition-all duration-300 group relative"
+            className="bg-card border border-border rounded-2xl p-7 card-hover group relative"
           >
             <div className="flex items-center gap-4 mb-4">
               <div className="w-11 h-11 rounded-xl gold-gradient flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
