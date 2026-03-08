@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 const fadeUp = (delay = 0) => ({
   initial: { opacity: 0, y: 30, filter: "blur(8px)" },
   animate: { opacity: 1, y: 0, filter: "blur(0px)" },
-  transition: { duration: 0.7, delay, ease: [0.25, 0.4, 0.25, 1] },
+  transition: { duration: 0.7, delay, ease: [0.25, 0.4, 0.25, 1] as [number, number, number, number] },
 });
 
 const HeroSection = () => {
