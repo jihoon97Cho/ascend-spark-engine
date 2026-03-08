@@ -89,7 +89,26 @@
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
-    filter: drop-shadow(0 0 12px hsl(45 100% 50% / 0.4)) drop-shadow(0 0 24px hsl(45 100% 50% / 0.2));
+    position: relative;
+    display: inline-block;
+  }
+
+  .gold-text::after {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -60%;
+    width: 40%;
+    height: 200%;
+    background: linear-gradient(
+      90deg,
+      transparent,
+      hsl(0 0% 100% / 0.4),
+      transparent
+    );
+    transform: skewX(-20deg);
+    animation: btn-shimmer 3s ease-in-out infinite;
+    pointer-events: none;
   }
 
   .gold-border {
