@@ -61,7 +61,7 @@ const VideoTestimonialsSection = () => (
             className="rounded-2xl overflow-hidden border border-border card-hover bg-card aspect-[9/16]"
           >
             <iframe
-              src={`https://www.youtube.com/embed/${id}`}
+              src={`https://www.youtube.com/embed/${id}?autoplay=1&mute=1&loop=1&playlist=${id}`}
               title="Client testimonial video"
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
               allowFullScreen
