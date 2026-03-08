@@ -41,9 +41,9 @@ const HeroSection = () => {
           className="text-4xl sm:text-5xl lg:text-7xl font-extrabold leading-[1.1] mb-6"
         >
           We'll Help You Secure Up To{" "}
-          <span className="gold-text">$150,000</span>
-          <br />
-          at <span className="gold-text">0% Interest</span>
+           <span className="gold-text-shine">$150,000</span>
+           <br />
+           at <span className="gold-text-shine">0% Interest</span>
         </motion.h1>
 
         <motion.p
