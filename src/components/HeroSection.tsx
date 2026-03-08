@@ -126,7 +126,7 @@ const HeroSection = () => {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 1.1 + i * 0.1, duration: 0.5 }}
-              className="flex items-center gap-3 bg-card/50 border border-border rounded-lg px-5 py-4 hover:border-primary/20 transition-colors duration-300"
+              className="flex items-center gap-3 bg-card/50 border border-border rounded-lg px-5 py-4 card-hover"
             >
               <div className="flex-shrink-0 w-10 h-10 rounded-full gold-gradient flex items-center justify-center">
                 <Icon size={18} className="text-primary-foreground" />
