@@ -80,7 +80,7 @@ const HeroSection = () => {
           <Button
             onClick={scrollToQualify}
             size="lg"
-            className="gold-gradient text-primary-foreground font-bold text-lg px-12 py-7 hover:opacity-90 transition-opacity gold-glow"
+            className="gold-gradient text-primary-foreground font-bold text-lg px-12 py-7 hover:scale-105 transition-all duration-300 gold-glow btn-shine"
           >
             Get Me Funded Now <ArrowRight size={20} className="ml-1" />
           </Button>
