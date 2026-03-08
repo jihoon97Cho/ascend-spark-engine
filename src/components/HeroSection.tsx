@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
 import { ArrowDown, Shield, Clock, DollarSign, ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { useNavigate } from "react-router-dom";
 
 const fadeUp = (delay = 0) => ({
   initial: { opacity: 0, y: 30, filter: "blur(8px)" },
@@ -9,9 +10,8 @@ const fadeUp = (delay = 0) => ({
 });
 
 const HeroSection = () => {
-  const scrollToQualify = () => {
-    document.getElementById("qualify")?.scrollIntoView({ behavior: "smooth" });
-  };
+  const navigate = useNavigate();
+  const goToBook = () => navigate("/book");
 
   return (
     <section className="relative min-h-screen flex items-center justify-center pt-16 overflow-hidden">
@@ -32,7 +32,6 @@ const HeroSection = () => {
       </div>
 
       <div className="relative max-w-5xl mx-auto px-4 sm:px-6 text-center py-20">
-        {/* Top badge */}
         <motion.div {...fadeUp(0.1)} className="inline-flex items-center gap-2 bg-primary/10 border border-primary/20 rounded-full px-5 py-2 mb-8">
           <span className="text-sm font-semibold text-primary">Need Additional Capital For Growth?</span>
         </motion.div>
@@ -55,7 +54,6 @@ const HeroSection = () => {
           You only pay after you're funded.
         </motion.p>
 
-        {/* Stats bar */}
         <motion.div
           {...fadeUp(0.5)}
           className="inline-flex items-center gap-6 bg-card border border-border rounded-full px-6 py-3 mb-10"
@@ -78,7 +76,7 @@ const HeroSection = () => {
 
         <motion.div {...fadeUp(0.6)} className="flex flex-col items-center gap-4 mb-8">
           <Button
-            onClick={scrollToQualify}
+            onClick={goToBook}
             size="lg"
             className="gold-gradient text-primary-foreground font-bold text-lg px-12 py-7 hover:scale-105 transition-all duration-300 gold-glow btn-shine"
           >
@@ -86,7 +84,6 @@ const HeroSection = () => {
           </Button>
         </motion.div>
 
-        {/* Trust bullets */}
         <motion.div
           {...fadeUp(0.7)}
           className="flex flex-col items-center gap-2 mb-16"
@@ -145,7 +142,7 @@ const HeroSection = () => {
           transition={{ delay: 1.5 }}
           className="mt-16"
         >
-          <button onClick={scrollToQualify} className="text-muted-foreground hover:text-primary transition-colors">
+          <button onClick={goToBook} className="text-muted-foreground hover:text-primary transition-colors">
             <ArrowDown size={24} className="animate-bounce" />
           </button>
         </motion.div>

@@ -1,7 +1,6 @@
 import Navbar from "@/components/Navbar";
 import HeroSection from "@/components/HeroSection";
 import StatsSection from "@/components/StatsSection";
-import QualificationForm from "@/components/QualificationForm";
 import WhyUsSection from "@/components/WhyUsSection";
 import MidCTA from "@/components/MidCTA";
 import SystemSection from "@/components/SystemSection";
@@ -18,7 +17,6 @@ const Index = () => (
     <Navbar />
     <HeroSection />
     <StatsSection />
-    <QualificationForm />
     <WhyUsSection />
     <MidCTA />
     <SystemSection />
