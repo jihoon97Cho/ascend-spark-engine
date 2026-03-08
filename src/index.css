@@ -117,14 +117,13 @@
   }
 
   .card-hover:hover {
-    transform: perspective(800px) translateY(-12px) translateZ(20px) scale(1.02);
+    transform: perspective(800px) translateY(-16px) translateZ(30px) scale(1.12);
     border-color: transparent;
-    box-shadow: 0 20px 50px hsl(220 20% 10% / 0.12), 0 0 30px hsl(45 100% 44% / 0.08);
+    box-shadow: 0 30px 60px hsl(220 20% 10% / 0.15);
   }
 
   .card-hover:hover::before {
-    opacity: 1;
-    background: linear-gradient(135deg, hsl(45 100% 44% / 0.6), hsl(38 90% 50% / 0.3), hsl(45 100% 44% / 0.6));
+    opacity: 0;
   }
 
   .btn-shine {
