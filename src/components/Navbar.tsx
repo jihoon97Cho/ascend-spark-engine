@@ -2,14 +2,25 @@ import { useState } from "react";
 import { Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { motion, AnimatePresence } from "framer-motion";
+import { useNavigate } from "react-router-dom";
 import logo from "@/assets/logo.png";
 
 const Navbar = () => {
   const [open, setOpen] = useState(false);
+  const navigate = useNavigate();
 
   const scrollTo = (id: string) => {
     document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
     setOpen(false);
+  };
+
+  const handleNav = (id: string) => {
+    if (id === "qualify") {
+      navigate("/book");
+      setOpen(false);
+    } else {
+      scrollTo(id);
+    }
   };
 
   return (
@@ -26,13 +37,13 @@ const Navbar = () => {
           {["qualify", "why-us", "testimonials", "faq"].map((id) => (
             <button
               key={id}
-              onClick={() => scrollTo(id)}
+              onClick={() => handleNav(id)}
               className="text-sm text-muted-foreground hover:text-foreground transition-colors capitalize"
             >
               {id === "why-us" ? "Why Us" : id === "faq" ? "FAQ" : id === "qualify" ? "Qualify" : "Testimonials"}
             </button>
           ))}
-          <Button onClick={() => scrollTo("qualify")} size="sm" className="gold-gradient text-primary-foreground font-semibold hover:scale-105 transition-all duration-300 btn-shine">
+          <Button onClick={() => navigate("/book")} size="sm" className="gold-gradient text-primary-foreground font-semibold hover:scale-105 transition-all duration-300 btn-shine">
             Book a Call
           </Button>
         </div>
@@ -54,13 +65,13 @@ const Navbar = () => {
               {["qualify", "why-us", "testimonials", "faq"].map((id) => (
                 <button
                   key={id}
-                  onClick={() => scrollTo(id)}
+                  onClick={() => handleNav(id)}
                   className="text-left text-sm text-muted-foreground hover:text-foreground transition-colors capitalize py-2"
                 >
                   {id === "why-us" ? "Why Us" : id === "faq" ? "FAQ" : id === "qualify" ? "Qualify" : "Testimonials"}
                 </button>
               ))}
-              <Button onClick={() => scrollTo("qualify")} className="gold-gradient text-primary-foreground font-semibold w-full">
+              <Button onClick={() => { navigate("/book"); setOpen(false); }} className="gold-gradient text-primary-foreground font-semibold w-full">
                 Book a Call
               </Button>
             </div>
