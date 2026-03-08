@@ -7,6 +7,7 @@ import { AuthProvider } from "@/hooks/useAuth";
 import ProtectedRoute from "@/components/ProtectedRoute";
 import Index from "./pages/Index";
 import BookCall from "./pages/BookCall";
+import BookCalendar from "./pages/BookCalendar";
 import Dashboard from "./pages/Dashboard";
 import Login from "./pages/Login";
 import NotFound from "./pages/NotFound";
@@ -23,6 +24,7 @@ const App = () => (
           <Routes>
             <Route path="/" element={<Index />} />
             <Route path="/book" element={<BookCall />} />
+            <Route path="/book-call" element={<BookCalendar />} />
             <Route path="/login" element={<Login />} />
             <Route path="/dashboard" element={
               <ProtectedRoute>

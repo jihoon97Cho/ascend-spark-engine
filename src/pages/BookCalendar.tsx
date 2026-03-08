@@ -3,7 +3,7 @@ import { ArrowLeft } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 
-const BookCall = () => {
+const BookCalendar = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -11,28 +11,10 @@ const BookCall = () => {
     script.src = "https://link.msgsndr.com/js/form_embed.js";
     script.async = true;
     document.body.appendChild(script);
-
-    // Listen for survey submission message from the iframe
-    const handleMessage = (event: MessageEvent) => {
-      // LeadConnector posts messages on form submission
-      if (
-        event.data &&
-        (event.data.type === "form:submit" ||
-          event.data.type === "survey:submit" ||
-          event.data === "form_submitted" ||
-          (typeof event.data === "string" && event.data.includes("submit")))
-      ) {
-        navigate("/book-call");
-      }
-    };
-
-    window.addEventListener("message", handleMessage);
-
     return () => {
       document.body.removeChild(script);
-      window.removeEventListener("message", handleMessage);
     };
-  }, [navigate]);
+  }, []);
 
   return (
     <div className="min-h-screen bg-background flex flex-col">
@@ -54,20 +36,20 @@ const BookCall = () => {
       >
         <div className="text-center mb-8">
           <h1 className="text-3xl sm:text-4xl font-bold mb-3">
-            See If You <span className="gold-text">Qualify</span>
+            Book Your <span className="gold-text">Funding Call</span>
           </h1>
           <p className="text-muted-foreground max-w-lg mx-auto">
-            Answer a few quick questions to find out how much 0% capital you can access.
+            Pick a time that works for you. We'll walk you through your approval details.
           </p>
         </div>
 
         <div className="rounded-2xl overflow-hidden">
           <iframe
-            src="https://api.leadconnectorhq.com/widget/survey/TL0Xei08t8ADyBpL916x"
-            style={{ border: "none", width: "100%", minHeight: "100vh" }}
+            src="https://api.leadconnectorhq.com/widget/booking/pf6Qvry1sNsR8s08Tb0V"
+            style={{ border: "none", width: "100%", minHeight: "100vh", overflow: "hidden" }}
             scrolling="no"
-            id="TL0Xei08t8ADyBpL916x"
-            title="Qualification Survey"
+            id="jtn3sWu1QUALvsUUhsST_1773004167773"
+            title="Book a Call"
           />
         </div>
       </motion.div>
@@ -75,4 +57,4 @@ const BookCall = () => {
   );
 };
 
-export default BookCall;
+export default BookCalendar;
