@@ -1,8 +1,9 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { CheckCircle, ArrowRight, ArrowLeft } from "lucide-react";
+import { trackEvent, type FunnelStep } from "@/lib/leadTracking";
 
 type FormData = {
   creditScore: string;
