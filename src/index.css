@@ -171,3 +171,33 @@
 .animate-marquee:hover {
   animation-play-state: paused;
 }
+
+/* Print styles for dashboard reports */
+@media print {
+  body {
+    background: white !important;
+    color: black !important;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  .print\\:hidden {
+    display: none !important;
+  }
+
+  .print\\:static {
+    position: static !important;
+  }
+
+  .print\\:border-0 {
+    border: none !important;
+  }
+
+  .print\\:block {
+    display: block !important;
+  }
+
+  .print\\:mt-8 {
+    margin-top: 2rem !important;
+  }
+}

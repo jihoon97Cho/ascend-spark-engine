@@ -1,8 +1,9 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { CheckCircle, ArrowRight, ArrowLeft } from "lucide-react";
+import { trackEvent, type FunnelStep } from "@/lib/leadTracking";
 
 type FormData = {
   creditScore: string;
@@ -24,6 +25,24 @@ const QualificationForm = () => {
     phone: "",
   });
   const [submitted, setSubmitted] = useState(false);
+
+  // Track page view on mount
+  useEffect(() => {
+    trackEvent('page_view');
+  }, []);
+
+  // Track step changes
+  useEffect(() => {
+    const stepMap: Record<number, FunnelStep> = {
+      0: 'form_start',
+      1: 'step_1_credit_score',
+      2: 'step_2_credit_limits',
+      3: 'step_3_capital_needed',
+    };
+    if (step > 0 || data.creditScore) {
+      trackEvent(stepMap[step] || 'form_start');
+    }
+  }, [step]);
 
   const steps = [
     {
@@ -52,6 +71,8 @@ const QualificationForm = () => {
   const handleNext = () => {
     if (step < 3) setStep(step + 1);
     else {
+      trackEvent('step_4_contact_info');
+      trackEvent('submitted');
       setSubmitted(true);
     }
   };
