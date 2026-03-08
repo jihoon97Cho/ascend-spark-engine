@@ -89,6 +89,7 @@
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
+    filter: drop-shadow(0 0 12px hsl(45 100% 50% / 0.4)) drop-shadow(0 0 24px hsl(45 100% 50% / 0.2));
   }
 
   .gold-border {
