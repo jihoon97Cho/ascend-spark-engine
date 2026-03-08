@@ -101,7 +101,7 @@ const HeroSection = () => {
               transition={{ delay: 0.8 + i * 0.08, duration: 0.4 }}
               className="flex items-center gap-2 text-sm text-muted-foreground"
             >
-              <span className="gold-text">→</span>
+              <span className="gold-text-shine">→</span>
               <span>{text}</span>
             </motion.div>
           ))}
