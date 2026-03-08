@@ -100,13 +100,14 @@
   }
 
   .card-hover {
-    @apply transition-all duration-300;
+    @apply transition-all duration-500 ease-out;
+    transform: perspective(800px) translateY(0) translateZ(0);
   }
 
   .card-hover:hover {
-    transform: translateY(-4px);
-    border-color: hsl(45 100% 44% / 0.3);
-    box-shadow: 0 8px 30px hsl(45 100% 44% / 0.1), 0 0 0 1px hsl(45 100% 44% / 0.1);
+    transform: perspective(800px) translateY(-12px) translateZ(20px) scale(1.02);
+    border-color: hsl(45 100% 44% / 0.35);
+    box-shadow: 0 20px 50px hsl(220 20% 10% / 0.12), 0 0 0 1px hsl(45 100% 44% / 0.15);
   }
 
   .btn-shine {
