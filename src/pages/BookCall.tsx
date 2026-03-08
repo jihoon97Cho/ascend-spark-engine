@@ -44,10 +44,10 @@ const BookCall = () => {
           </p>
         </div>
 
-        <div className="bg-card border border-border rounded-2xl p-4 sm:p-8">
+        <div className="rounded-2xl overflow-hidden">
           <iframe
             src="https://api.leadconnectorhq.com/widget/survey/TL0Xei08t8ADyBpL916x"
-            style={{ border: "none", width: "100%", minHeight: "600px" }}
+            style={{ border: "none", width: "100%", minHeight: "100vh" }}
             scrolling="no"
             id="TL0Xei08t8ADyBpL916x"
             title="Qualification Survey"
