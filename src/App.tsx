@@ -8,6 +8,7 @@ import ProtectedRoute from "@/components/ProtectedRoute";
 import Index from "./pages/Index";
 import BookCall from "./pages/BookCall";
 import BookCalendar from "./pages/BookCalendar";
+import ThankYou from "./pages/ThankYou";
 import Dashboard from "./pages/Dashboard";
 import Login from "./pages/Login";
 import NotFound from "./pages/NotFound";
@@ -25,6 +26,7 @@ const App = () => (
             <Route path="/" element={<Index />} />
             <Route path="/book" element={<BookCall />} />
             <Route path="/book-call" element={<BookCalendar />} />
+            <Route path="/thank-you" element={<ThankYou />} />
             <Route path="/login" element={<Login />} />
             <Route path="/dashboard" element={
               <ProtectedRoute>

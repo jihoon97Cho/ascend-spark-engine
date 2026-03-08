@@ -3,7 +3,7 @@ import { ArrowLeft } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 
-const BookCalendar = () => {
+const ThankYou = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -11,26 +11,10 @@ const BookCalendar = () => {
     script.src = "https://link.msgsndr.com/js/form_embed.js";
     script.async = true;
     document.body.appendChild(script);
-
-    const handleMessage = (event: MessageEvent) => {
-      if (
-        event.data &&
-        (event.data.type === "form:submit" ||
-          event.data.type === "booking:submit" ||
-          event.data === "form_submitted" ||
-          (typeof event.data === "string" && event.data.includes("submit")))
-      ) {
-        navigate("/thank-you");
-      }
-    };
-
-    window.addEventListener("message", handleMessage);
-
     return () => {
       document.body.removeChild(script);
-      window.removeEventListener("message", handleMessage);
     };
-  }, [navigate]);
+  }, []);
 
   return (
     <div className="min-h-screen bg-background flex flex-col">
@@ -52,20 +36,27 @@ const BookCalendar = () => {
       >
         <div className="text-center mb-8">
           <h1 className="text-3xl sm:text-4xl font-bold mb-3">
-            Book Your <span className="gold-text">Funding Call</span>
+            You're <span className="gold-text">All Set!</span>
           </h1>
           <p className="text-muted-foreground max-w-lg mx-auto">
-            Pick a time that works for you. We'll walk you through your approval details.
+            Your call is booked. Upload your credit report below to speed up your approval.
           </p>
         </div>
 
         <div className="rounded-2xl overflow-hidden">
           <iframe
-            src="https://api.leadconnectorhq.com/widget/booking/pf6Qvry1sNsR8s08Tb0V"
-            style={{ border: "none", width: "100%", minHeight: "100vh", overflow: "hidden" }}
-            scrolling="no"
-            id="jtn3sWu1QUALvsUUhsST_1773004167773"
-            title="Book a Call"
+            src="https://api.leadconnectorhq.com/widget/form/vK3S8Rm0TqpknxTS3xWC"
+            style={{ width: "100%", height: "1330px", border: "none", borderRadius: "3px" }}
+            id="inline-vK3S8Rm0TqpknxTS3xWC"
+            data-layout='{"id":"INLINE"}'
+            data-trigger-type="alwaysShow"
+            data-activation-type="alwaysActivated"
+            data-deactivation-type="neverDeactivate"
+            data-form-name="Credit Report Upload"
+            data-height="1330"
+            data-layout-iframe-id="inline-vK3S8Rm0TqpknxTS3xWC"
+            data-form-id="vK3S8Rm0TqpknxTS3xWC"
+            title="Credit Report Upload"
           />
         </div>
       </motion.div>
@@ -73,4 +64,4 @@ const BookCalendar = () => {
   );
 };
 
-export default BookCalendar;
+export default ThankYou;
