@@ -1,12 +1,12 @@
 import { useState, useEffect, useRef, useMemo } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import {
   BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer,
   AreaChart, Area, Cell
 } from "recharts";
 import { format, startOfMonth, endOfMonth, startOfYear, endOfYear, subMonths, startOfDay, endOfDay } from "date-fns";
-import { ArrowLeft, Printer, TrendingDown, Users, Target, AlertTriangle, Calendar, BarChart3 } from "lucide-react";
+import { ArrowLeft, Printer, TrendingDown, Users, Target, AlertTriangle, Calendar, BarChart3, LogOut } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
@@ -18,6 +18,7 @@ import {
   seedDemoData, type LeadEvent, type FunnelMetrics
 } from "@/lib/leadTracking";
 import logo from "@/assets/logo.png";
+import { useAuth } from "@/hooks/useAuth";
 
 type DateRange = 'today' | 'last7' | 'last30' | 'month' | 'year' | 'all';
 
@@ -32,6 +33,13 @@ const Dashboard = () => {
   const [selectedMonth, setSelectedMonth] = useState<string>('');
   const [selectedYear, setSelectedYear] = useState<string>(new Date().getFullYear().toString());
   const printRef = useRef<HTMLDivElement>(null);
+  const { signOut } = useAuth();
+  const navigate = useNavigate();
+
+  const handleSignOut = async () => {
+    await signOut();
+    navigate("/login");
+  };
 
   useEffect(() => {
     seedDemoData();
@@ -134,6 +142,9 @@ const Dashboard = () => {
             </Link>
             <Button onClick={handlePrint} variant="outline" size="sm" className="print:hidden">
               <Printer size={16} className="mr-1" /> Print Report
+            </Button>
+            <Button onClick={handleSignOut} variant="ghost" size="sm" className="text-muted-foreground print:hidden">
+              <LogOut size={16} className="mr-1" /> Sign Out
             </Button>
           </div>
         </div>
