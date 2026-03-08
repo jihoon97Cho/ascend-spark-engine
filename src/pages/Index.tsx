@@ -25,6 +25,7 @@ const Index = () => (
     <StepsSection />
     <VideoTestimonialsSection />
     <TestimonialsSection />
+    <ClientWinsSection />
     <MidCTA />
     <FAQSection />
     <CTASection />
