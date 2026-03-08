@@ -19,36 +19,61 @@ const reasons = [
   },
 ];
 
+const container = {
+  hidden: {},
+  show: { transition: { staggerChildren: 0.15 } },
+};
+
+const item = {
+  hidden: { opacity: 0, y: 30, filter: "blur(6px)" },
+  show: { opacity: 1, y: 0, filter: "blur(0px)", transition: { duration: 0.6, ease: [0.25, 0.4, 0.25, 1] as [number, number, number, number] } },
+};
+
 const WhyUsSection = () => (
   <section id="why-us" className="py-24 px-4">
     <div className="max-w-6xl mx-auto">
       <div className="text-center mb-16">
-        <h2 className="text-3xl sm:text-4xl font-bold mb-3">
+        <motion.h2
+          initial={{ opacity: 0, y: 20, filter: "blur(6px)" }}
+          whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+          className="text-3xl sm:text-4xl font-bold mb-3"
+        >
           Why Work With <span className="gold-text">Us?</span>
-        </h2>
-        <p className="text-muted-foreground max-w-xl mx-auto">
+        </motion.h2>
+        <motion.p
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5, delay: 0.15 }}
+          className="text-muted-foreground max-w-xl mx-auto"
+        >
           Our Fast Funding Program makes it easy and possible to get the capital you need
-        </p>
+        </motion.p>
       </div>
 
-      <div className="grid md:grid-cols-3 gap-6">
-        {reasons.map(({ icon: Icon, title, desc }, i) => (
+      <motion.div
+        variants={container}
+        initial="hidden"
+        whileInView="show"
+        viewport={{ once: true }}
+        className="grid md:grid-cols-3 gap-6"
+      >
+        {reasons.map(({ icon: Icon, title, desc }) => (
           <motion.div
             key={title}
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: i * 0.15 }}
-            className="bg-card border border-border rounded-2xl p-8 hover:gold-border transition-colors group"
+            variants={item}
+            className="bg-card border border-border rounded-2xl p-8 hover:border-primary/30 transition-all duration-300 group"
           >
-            <div className="w-12 h-12 rounded-xl gold-gradient flex items-center justify-center mb-5 group-hover:scale-110 transition-transform">
+            <div className="w-12 h-12 rounded-xl gold-gradient flex items-center justify-center mb-5 group-hover:scale-110 transition-transform duration-300">
               <Icon size={22} className="text-primary-foreground" />
             </div>
             <h3 className="text-xl font-bold mb-3">{title}</h3>
             <p className="text-muted-foreground text-sm leading-relaxed">{desc}</p>
           </motion.div>
         ))}
-      </div>
+      </motion.div>
     </div>
   </section>
 );

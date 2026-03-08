@@ -19,7 +19,7 @@ const MidCTA = () => (
       <Button
         onClick={() => document.getElementById("qualify")?.scrollIntoView({ behavior: "smooth" })}
         size="lg"
-        className="gold-gradient text-primary-foreground font-bold text-lg px-10 py-6 hover:opacity-90 gold-glow"
+        className="gold-gradient text-primary-foreground font-bold text-lg px-10 py-6 hover:scale-105 transition-all duration-300 gold-glow btn-shine"
       >
         Check If You Qualify <ArrowRight size={18} className="ml-1" />
       </Button>

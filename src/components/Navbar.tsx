@@ -28,7 +28,7 @@ const Navbar = () => {
               {id === "why-us" ? "Why Us" : id === "faq" ? "FAQ" : id === "qualify" ? "Qualify" : "Testimonials"}
             </button>
           ))}
-          <Button onClick={() => scrollTo("qualify")} size="sm" className="gold-gradient text-primary-foreground font-semibold hover:opacity-90">
+          <Button onClick={() => scrollTo("qualify")} size="sm" className="gold-gradient text-primary-foreground font-semibold hover:scale-105 transition-all duration-300 btn-shine">
             Book a Call
           </Button>
         </div>
