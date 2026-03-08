@@ -26,9 +26,9 @@ const Navbar = () => {
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-xl border-b border-border">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between h-16">
-        <div className="flex items-center gap-2">
-          <img src={logo} alt="Ascend Solutions" className="h-8 w-8" />
-          <span className="text-xl font-bold tracking-tight font-['Plus_Jakarta_Sans']">
+        <div className="flex items-center gap-3">
+          <img src={logo} alt="Ascend Solutions" className="h-9 w-9" />
+          <span className="text-2xl font-extrabold tracking-tight font-['Plus_Jakarta_Sans']">
             <span className="gold-text">Ascend</span> Solutions
           </span>
         </div>
