@@ -7,24 +7,33 @@ const stats = [
   { value: "48hr", label: "Fastest Approval" },
 ];
 
+const container = {
+  hidden: {},
+  show: { transition: { staggerChildren: 0.1 } },
+};
+
+const item = {
+  hidden: { opacity: 0, scale: 0.9 },
+  show: { opacity: 1, scale: 1, transition: { duration: 0.5, ease: [0.25, 0.4, 0.25, 1] } },
+};
+
 const StatsSection = () => (
   <section className="py-16 px-4 border-y border-border bg-card/30">
     <div className="max-w-5xl mx-auto">
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
-        {stats.map(({ value, label }, i) => (
-          <motion.div
-            key={label}
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: i * 0.1 }}
-            className="text-center"
-          >
+      <motion.div
+        variants={container}
+        initial="hidden"
+        whileInView="show"
+        viewport={{ once: true }}
+        className="grid grid-cols-2 md:grid-cols-4 gap-8"
+      >
+        {stats.map(({ value, label }) => (
+          <motion.div key={label} variants={item} className="text-center">
             <p className="text-3xl sm:text-4xl font-extrabold gold-text mb-1">{value}</p>
             <p className="text-sm text-muted-foreground">{label}</p>
           </motion.div>
         ))}
-      </div>
+      </motion.div>
     </div>
   </section>
 );

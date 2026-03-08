@@ -2,54 +2,42 @@ import { motion } from "framer-motion";
 import { Search, Settings, Target, Handshake, TrendingUp, BookOpen } from "lucide-react";
 
 const steps = [
-  {
-    icon: Search,
-    title: "The Funding Audit",
-    desc: "We audit your business structuring, personal credit, and reveal every rejection killer — then optimize for maximum approvals.",
-  },
-  {
-    icon: Settings,
-    title: "The Optimization Process",
-    desc: "We restructure your business setup and make sure your personal profile is clean and application-ready for the banks.",
-  },
-  {
-    icon: Target,
-    title: "Application Sequencing",
-    desc: "We build a tailored game plan and sequencing strategy for your exact business and credit setup. Timing matters more than you think.",
-  },
-  {
-    icon: Handshake,
-    title: "Banking Relationships",
-    desc: "Our private network of relationship managers at major banks run your applications directly, optimizing for maximum approvals.",
-  },
-  {
-    icon: TrendingUp,
-    title: "Set Up For The Long Game",
-    desc: "We don't just get you 0% funding — we set your business up for long-term capital like SBAs, BLOCs, and low-interest options.",
-  },
-  {
-    icon: BookOpen,
-    title: "You Get Our Exact Playbook",
-    desc: "We work side by side with you AND teach you the strategies so you can leverage these skills for years to come.",
-  },
+  { icon: Search, title: "The Funding Audit", desc: "We audit your business structuring, personal credit, and reveal every rejection killer — then optimize for maximum approvals." },
+  { icon: Settings, title: "The Optimization Process", desc: "We restructure your business setup and make sure your personal profile is clean and application-ready for the banks." },
+  { icon: Target, title: "Application Sequencing", desc: "We build a tailored game plan and sequencing strategy for your exact business and credit setup. Timing matters more than you think." },
+  { icon: Handshake, title: "Banking Relationships", desc: "Our private network of relationship managers at major banks run your applications directly, optimizing for maximum approvals." },
+  { icon: TrendingUp, title: "Set Up For The Long Game", desc: "We don't just get you 0% funding — we set your business up for long-term capital like SBAs, BLOCs, and low-interest options." },
+  { icon: BookOpen, title: "You Get Our Exact Playbook", desc: "We work side by side with you AND teach you the strategies so you can leverage these skills for years to come." },
 ];
+
+const container = {
+  hidden: {},
+  show: { transition: { staggerChildren: 0.1 } },
+};
+
+const item = {
+  hidden: { opacity: 0, y: 30, filter: "blur(6px)" },
+  show: { opacity: 1, y: 0, filter: "blur(0px)", transition: { duration: 0.6, ease: [0.25, 0.4, 0.25, 1] } },
+};
 
 const SystemSection = () => (
   <section className="py-24 px-4">
     <div className="max-w-6xl mx-auto">
       <div className="text-center mb-4">
         <motion.p
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
+          initial={{ opacity: 0, y: 10 }}
+          whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
+          transition={{ duration: 0.5 }}
           className="text-xs uppercase tracking-[0.2em] text-primary font-bold mb-3"
         >
           The System
         </motion.p>
         <motion.h2
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
+          initial={{ opacity: 0, y: 20, filter: "blur(6px)" }}
+          whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
           viewport={{ once: true }}
+          transition={{ duration: 0.6, delay: 0.1 }}
           className="text-3xl sm:text-4xl font-bold mb-4"
         >
           How We <span className="gold-text">Guarantee</span> High-Limit Approvals
@@ -58,24 +46,28 @@ const SystemSection = () => (
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
+          transition={{ duration: 0.5, delay: 0.2 }}
           className="text-muted-foreground max-w-xl mx-auto"
         >
           We engineer approvals through optimization, timing, and sequencing — not guesswork.
         </motion.p>
       </div>
 
-      <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-5 mt-14">
+      <motion.div
+        variants={container}
+        initial="hidden"
+        whileInView="show"
+        viewport={{ once: true }}
+        className="grid md:grid-cols-2 lg:grid-cols-3 gap-5 mt-14"
+      >
         {steps.map(({ icon: Icon, title, desc }, i) => (
           <motion.div
             key={title}
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: i * 0.1 }}
-            className="bg-card border border-border rounded-2xl p-7 hover:gold-border transition-all group relative"
+            variants={item}
+            className="bg-card border border-border rounded-2xl p-7 hover:border-primary/30 transition-all duration-300 group relative"
           >
             <div className="flex items-center gap-4 mb-4">
-              <div className="w-11 h-11 rounded-xl gold-gradient flex items-center justify-center group-hover:scale-110 transition-transform">
+              <div className="w-11 h-11 rounded-xl gold-gradient flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
                 <Icon size={20} className="text-primary-foreground" />
               </div>
               <span className="text-[10px] uppercase tracking-[0.15em] text-muted-foreground font-bold">
@@ -86,7 +78,7 @@ const SystemSection = () => (
             <p className="text-muted-foreground text-sm leading-relaxed">{desc}</p>
           </motion.div>
         ))}
-      </div>
+      </motion.div>
     </div>
   </section>
 );
