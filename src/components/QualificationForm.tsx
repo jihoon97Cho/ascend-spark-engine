@@ -26,6 +26,24 @@ const QualificationForm = () => {
   });
   const [submitted, setSubmitted] = useState(false);
 
+  // Track page view on mount
+  useEffect(() => {
+    trackEvent('page_view');
+  }, []);
+
+  // Track step changes
+  useEffect(() => {
+    const stepMap: Record<number, FunnelStep> = {
+      0: 'form_start',
+      1: 'step_1_credit_score',
+      2: 'step_2_credit_limits',
+      3: 'step_3_capital_needed',
+    };
+    if (step > 0 || data.creditScore) {
+      trackEvent(stepMap[step] || 'form_start');
+    }
+  }, [step]);
+
   const steps = [
     {
       title: "What is your credit score?",
