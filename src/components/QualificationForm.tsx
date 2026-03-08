@@ -71,6 +71,8 @@ const QualificationForm = () => {
   const handleNext = () => {
     if (step < 3) setStep(step + 1);
     else {
+      trackEvent('step_4_contact_info');
+      trackEvent('submitted');
       setSubmitted(true);
     }
   };
