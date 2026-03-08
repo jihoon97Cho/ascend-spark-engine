@@ -8,6 +8,7 @@ import SystemSection from "@/components/SystemSection";
 import StepsSection from "@/components/StepsSection";
 import VideoTestimonialsSection from "@/components/VideoTestimonialsSection";
 import TestimonialsSection from "@/components/TestimonialsSection";
+import ClientWinsSection from "@/components/ClientWinsSection";
 import FAQSection from "@/components/FAQSection";
 import CTASection from "@/components/CTASection";
 import Footer from "@/components/Footer";
@@ -24,6 +25,7 @@ const Index = () => (
     <StepsSection />
     <VideoTestimonialsSection />
     <TestimonialsSection />
+    <ClientWinsSection />
     <MidCTA />
     <FAQSection />
     <CTASection />
