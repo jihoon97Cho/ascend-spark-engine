@@ -8,6 +8,7 @@ const BookCall = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
+    trackPageView('/book');
     const script = document.createElement("script");
     script.src = "https://link.msgsndr.com/js/form_embed.js";
     script.async = true;

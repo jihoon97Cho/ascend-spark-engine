@@ -8,6 +8,7 @@ const BookCalendar = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
+    trackPageView('/book-call');
     const script = document.createElement("script");
     script.src = "https://link.msgsndr.com/js/form_embed.js";
     script.async = true;
