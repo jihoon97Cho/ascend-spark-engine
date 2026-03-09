@@ -38,6 +38,10 @@ const faqs = [
     q: "What credit score do I actually need?",
     a: "A 700+ credit score gives you the strongest chance at higher approvals and better funding results. If you are in the 650 to 699 range, you may still have options, but we usually recommend improving your profile first so you can qualify more strategically and avoid wasting good bank relationships too early. If you are below 650, the focus should usually be on credit improvement first. Once your score and overall profile are in a stronger position, we can then move into the funding phase with much better approval odds. Your score is important, but it is not the only factor. Banks also look at things like utilization, payment history, account age, inquiries, and overall credit strength.",
   },
+  {
+    q: "How long does this take?",
+    a: "Most funding cases take 30 to 60 days. If your profile is already strong, it may move faster. If you need credit or profile optimization first, it may take longer. We focus on doing it the right way, not the rushed way, so you have the best chance at strong approvals.",
+  },
 ];
 
 const FAQSection = () => (
