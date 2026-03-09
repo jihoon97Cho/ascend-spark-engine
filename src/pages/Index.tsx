@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import Navbar from "@/components/Navbar";
 import HeroSection from "@/components/HeroSection";
 import StatsSection from "@/components/StatsSection";
@@ -12,25 +13,30 @@ import TrainingSection from "@/components/TrainingSection";
 import FAQSection from "@/components/FAQSection";
 import CTASection from "@/components/CTASection";
 import Footer from "@/components/Footer";
+import { trackPageView } from "@/lib/leadTracking";
 
-const Index = () => (
-  <div className="min-h-screen bg-background">
-    <Navbar />
-    <HeroSection />
-    <StatsSection />
-    <WhyUsSection />
-    <MidCTA />
-    <SystemSection />
-    <StepsSection />
-    <VideoTestimonialsSection />
-    <TestimonialsSection />
-    <ClientWinsSection />
-    <MidCTA />
-    <TrainingSection />
-    <FAQSection />
-    <CTASection />
-    <Footer />
-  </div>
-);
+const Index = () => {
+  useEffect(() => { trackPageView('/'); }, []);
+
+  return (
+    <div className="min-h-screen bg-background">
+      <Navbar />
+      <HeroSection />
+      <StatsSection />
+      <WhyUsSection />
+      <MidCTA />
+      <SystemSection />
+      <StepsSection />
+      <VideoTestimonialsSection />
+      <TestimonialsSection />
+      <ClientWinsSection />
+      <MidCTA />
+      <TrainingSection />
+      <FAQSection />
+      <CTASection />
+      <Footer />
+    </div>
+  );
+};
 
 export default Index;

@@ -2,6 +2,7 @@ import { motion } from "framer-motion";
 import { ArrowLeft, AlertTriangle, Clock, CalendarX } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
+import { trackPageView } from "@/lib/leadTracking";
 import calendarReminder from "@/assets/calendar-reminder.png";
 
 const videos = [

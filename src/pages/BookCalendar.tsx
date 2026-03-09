@@ -2,6 +2,7 @@ import { motion } from "framer-motion";
 import { ArrowLeft } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
+import { trackPageView } from "@/lib/leadTracking";
 
 const BookCalendar = () => {
   const navigate = useNavigate();
