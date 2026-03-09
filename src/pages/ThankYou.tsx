@@ -87,6 +87,48 @@ const ThankYou = () => {
           <p className="text-muted-foreground mb-6">
             Check your email for the calendar invite and make sure to accept it.
           </p>
+
+          {/* Calendar add buttons */}
+          <div className="flex flex-wrap justify-center gap-4 mb-8">
+            <a
+              href="https://calendar.google.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-2 rounded-xl border border-border bg-card px-5 py-3 text-sm font-semibold hover:border-primary/50 hover:bg-card/80 transition-all"
+            >
+              <svg viewBox="0 0 24 24" className="w-5 h-5" fill="none">
+                <path d="M18 3H6a3 3 0 0 0-3 3v12a3 3 0 0 0 3 3h12a3 3 0 0 0 3-3V6a3 3 0 0 0-3-3Z" fill="#4285F4"/>
+                <path d="M10 17l-4-4 1.4-1.4 2.6 2.6 6.6-6.6L18 9l-8 8Z" fill="#fff"/>
+              </svg>
+              Google Calendar
+            </a>
+            <a
+              href="https://outlook.live.com/calendar"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-2 rounded-xl border border-border bg-card px-5 py-3 text-sm font-semibold hover:border-primary/50 hover:bg-card/80 transition-all"
+            >
+              <svg viewBox="0 0 24 24" className="w-5 h-5" fill="none">
+                <path d="M21 4H3v16h18V4Z" fill="#0078D4"/>
+                <path d="M12 6a6 6 0 1 0 0 12 6 6 0 0 0 0-12Zm0 10a4 4 0 1 1 0-8 4 4 0 0 1 0 8Z" fill="#fff"/>
+                <path d="M12 9v3l2.5 1.5" stroke="#fff" strokeWidth="1.5" strokeLinecap="round"/>
+              </svg>
+              Outlook
+            </a>
+            <a
+              href="webcal://"
+              className="flex items-center gap-2 rounded-xl border border-border bg-card px-5 py-3 text-sm font-semibold hover:border-primary/50 hover:bg-card/80 transition-all"
+            >
+              <svg viewBox="0 0 24 24" className="w-5 h-5" fill="none">
+                <rect x="3" y="4" width="18" height="17" rx="3" fill="#FF3B30"/>
+                <rect x="3" y="4" width="18" height="6" rx="3" fill="#FF3B30"/>
+                <rect x="3" y="8" width="18" height="13" rx="0" fill="#fff"/>
+                <text x="12" y="18" textAnchor="middle" fontSize="8" fontWeight="bold" fill="#333">31</text>
+              </svg>
+              Apple Calendar
+            </a>
+          </div>
+
           <div className="rounded-2xl overflow-hidden border border-border bg-card max-w-xl mx-auto">
             <img
               src={calendarReminder}
