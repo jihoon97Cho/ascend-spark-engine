@@ -465,7 +465,68 @@ const Dashboard = () => {
           </CardContent>
         </Card>
 
-        {/* Trend Chart */}
+        {/* Funnel Over Time */}
+        <Card className="mb-8 border-border/50 shadow-sm">
+          <CardHeader className="pb-2">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+              <CardTitle className="text-lg flex items-center gap-2">
+                <TrendingDown size={18} className="text-primary" />
+                Funnel Over Time
+              </CardTitle>
+              <Tabs value={funnelGrouping} onValueChange={(v) => setFunnelGrouping(v as FunnelGrouping)}>
+                <TabsList className="bg-secondary/50 h-8">
+                  <TabsTrigger value="day" className="text-xs px-3 h-6">Day</TabsTrigger>
+                  <TabsTrigger value="week" className="text-xs px-3 h-6">Week</TabsTrigger>
+                  <TabsTrigger value="month" className="text-xs px-3 h-6">Month</TabsTrigger>
+                </TabsList>
+              </Tabs>
+            </div>
+          </CardHeader>
+          <CardContent>
+            <div className="h-80">
+              <ResponsiveContainer width="100%" height="100%">
+                <LineChart data={funnelTimeSeries} margin={{ top: 5, right: 20, bottom: 5, left: 0 }}>
+                  <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border))" />
+                  <XAxis
+                    dataKey="period"
+                    tick={{ fontSize: 10, fill: 'hsl(var(--muted-foreground))' }}
+                    tickFormatter={(v) => {
+                      try {
+                        if (funnelGrouping === 'month') return format(new Date(v + '-01'), 'MMM yy');
+                        return format(new Date(v), 'MMM d');
+                      } catch { return v; }
+                    }}
+                  />
+                  <YAxis tick={{ fontSize: 11, fill: 'hsl(var(--muted-foreground))' }} />
+                  <Tooltip
+                    contentStyle={{
+                      background: 'hsl(var(--card))',
+                      border: '1px solid hsl(var(--border))',
+                      borderRadius: '8px',
+                      fontSize: '12px',
+                    }}
+                    labelFormatter={(v) => {
+                      try {
+                        if (funnelGrouping === 'month') return format(new Date(v + '-01'), 'MMMM yyyy');
+                        if (funnelGrouping === 'week') return `Week of ${format(new Date(v), 'MMM d, yyyy')}`;
+                        return format(new Date(v), 'PPP');
+                      } catch { return v; }
+                    }}
+                  />
+                  <Legend iconType="circle" wrapperStyle={{ fontSize: '11px' }} />
+                  <Line type="monotone" dataKey="page_view" stroke="hsl(45 100% 44%)" strokeWidth={2} dot={false} name="Page Visits" />
+                  <Line type="monotone" dataKey="form_start" stroke="hsl(210 80% 55%)" strokeWidth={2} dot={false} name="Started Form" />
+                  <Line type="monotone" dataKey="step_1_credit_score" stroke="hsl(280 70% 55%)" strokeWidth={1.5} dot={false} name="Credit Score" />
+                  <Line type="monotone" dataKey="step_2_credit_limits" stroke="hsl(330 70% 55%)" strokeWidth={1.5} dot={false} name="Credit Limits" />
+                  <Line type="monotone" dataKey="step_3_capital_needed" stroke="hsl(20 80% 55%)" strokeWidth={1.5} dot={false} name="Capital Needed" />
+                  <Line type="monotone" dataKey="step_4_contact_info" stroke="hsl(180 60% 45%)" strokeWidth={1.5} dot={false} name="Contact Info" />
+                  <Line type="monotone" dataKey="submitted" stroke="hsl(142 70% 45%)" strokeWidth={2} dot={false} name="Submitted" />
+                </LineChart>
+              </ResponsiveContainer>
+            </div>
+          </CardContent>
+        </Card>
+
         <Card className="mb-8 border-border/50 shadow-sm">
           <CardHeader className="pb-2">
             <CardTitle className="text-lg flex items-center gap-2">
