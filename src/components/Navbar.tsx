@@ -62,13 +62,13 @@ const Navbar = () => {
             className="md:hidden overflow-hidden bg-background border-b border-border"
           >
             <div className="px-4 py-4 flex flex-col gap-3">
-              {["qualify", "why-us", "testimonials", "faq"].map((id) => (
+              {["qualify", "why-us", "free-training", "testimonials", "faq"].map((id) => (
                 <button
                   key={id}
                   onClick={() => handleNav(id)}
                   className="text-left text-sm text-muted-foreground hover:text-foreground transition-colors capitalize py-2"
                 >
-                  {id === "why-us" ? "Why Us" : id === "faq" ? "FAQ" : id === "qualify" ? "Qualify" : "Testimonials"}
+                  {id === "why-us" ? "Why Us" : id === "faq" ? "FAQ" : id === "qualify" ? "Qualify" : id === "free-training" ? "Free Training" : "Testimonials"}
                 </button>
               ))}
               <Button onClick={() => { navigate("/book"); setOpen(false); }} className="gold-gradient text-primary-foreground font-semibold w-full">
