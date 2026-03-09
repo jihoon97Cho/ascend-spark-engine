@@ -47,6 +47,7 @@ const Dashboard = () => {
   const [dateRange, setDateRange] = useState<DateRange>('last30');
   const [selectedMonth, setSelectedMonth] = useState<string>('');
   const [selectedYear, setSelectedYear] = useState<string>(new Date().getFullYear().toString());
+  const [funnelGrouping, setFunnelGrouping] = useState<FunnelGrouping>('day');
   const printRef = useRef<HTMLDivElement>(null);
   const { signOut } = useAuth();
   const navigate = useNavigate();
