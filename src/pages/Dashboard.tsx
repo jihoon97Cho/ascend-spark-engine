@@ -420,10 +420,34 @@ const Dashboard = () => {
         {/* Funnel Visualization */}
         <Card className="mb-8 border-border/50 shadow-sm">
           <CardHeader className="pb-2">
-            <CardTitle className="text-lg flex items-center gap-2">
-              <TrendingDown size={18} className="text-primary" />
-              Funnel Drop-off Analysis
-            </CardTitle>
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+              <CardTitle className="text-lg flex items-center gap-2">
+                <TrendingDown size={18} className="text-primary" />
+                Funnel Drop-off Analysis
+              </CardTitle>
+              <div className="flex items-center gap-2 flex-wrap">
+                <Tabs value={funnelViewMode} onValueChange={(v) => setFunnelViewMode(v as 'all' | 'day' | 'week' | 'month')}>
+                  <TabsList className="bg-secondary/50 h-8">
+                    <TabsTrigger value="all" className="text-xs px-3 h-6">All</TabsTrigger>
+                    <TabsTrigger value="day" className="text-xs px-3 h-6">Day</TabsTrigger>
+                    <TabsTrigger value="week" className="text-xs px-3 h-6">Week</TabsTrigger>
+                    <TabsTrigger value="month" className="text-xs px-3 h-6">Month</TabsTrigger>
+                  </TabsList>
+                </Tabs>
+                {funnelViewMode !== 'all' && funnelPeriods.length > 0 && (
+                  <Select value={funnelPeriodIndex.toString()} onValueChange={(v) => setFunnelPeriodIndex(parseInt(v))}>
+                    <SelectTrigger className="w-48 h-8 text-xs">
+                      <SelectValue />
+                    </SelectTrigger>
+                    <SelectContent>
+                      {funnelPeriods.map((p, i) => (
+                        <SelectItem key={i} value={i.toString()}>{p.label}</SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                )}
+              </div>
+            </div>
           </CardHeader>
           <CardContent>
             {/* Visual funnel */}
