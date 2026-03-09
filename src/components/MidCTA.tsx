@@ -14,7 +14,7 @@ const MidCTA = () => {
         className="max-w-3xl mx-auto text-center"
       >
         <h2 className="text-2xl sm:text-3xl font-bold mb-4">
-          See Your Exact <span className="gold-text">Approval Amount</span>
+          Check Your <span className="gold-text">Funding Eligibility</span>
         </h2>
         <p className="text-muted-foreground mb-6 max-w-lg mx-auto">
           Get a clear path to $30K–$150K in 0% business capital. Takes less than 60 seconds.
