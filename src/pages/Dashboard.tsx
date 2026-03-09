@@ -102,6 +102,7 @@ const Dashboard = () => {
   const trend = useMemo(() => getDailyTrend(filteredEvents), [filteredEvents]);
   const pageMetrics = useMemo(() => getPageMetrics(filteredPageViews), [filteredPageViews]);
   const heatmapData = useMemo(() => getHeatmapData(filteredPageViews), [filteredPageViews]);
+  const funnelTimeSeries = useMemo(() => getFunnelTimeSeries(filteredEvents, funnelGrouping), [filteredEvents, funnelGrouping]);
 
   const heatmapMax = useMemo(() => Math.max(...heatmapData.map(c => c.count), 1), [heatmapData]);
 
