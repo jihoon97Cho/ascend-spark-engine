@@ -16,7 +16,8 @@ import {
 import {
   getEvents, getFunnelMetrics, filterEventsByDate, getDailyTrend,
   seedDemoData, getPageViews, filterPageViewsByDate, getPageMetrics, getHeatmapData,
-  type LeadEvent, type FunnelMetrics, type PageView
+  getFunnelTimeSeries,
+  type LeadEvent, type FunnelMetrics, type PageView, type FunnelGrouping
 } from "@/lib/leadTracking";
 import logo from "@/assets/logo.png";
 import { useAuth } from "@/hooks/useAuth";
