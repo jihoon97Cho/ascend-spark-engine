@@ -34,13 +34,13 @@ const Navbar = () => {
         </div>
 
         <div className="hidden md:flex items-center gap-8">
-          {["qualify", "why-us", "testimonials", "faq"].map((id) => (
+          {["qualify", "why-us", "free-training", "testimonials", "faq"].map((id) => (
             <button
               key={id}
               onClick={() => handleNav(id)}
               className="text-sm text-muted-foreground hover:text-foreground transition-colors capitalize"
             >
-              {id === "why-us" ? "Why Us" : id === "faq" ? "FAQ" : id === "qualify" ? "Qualify" : "Testimonials"}
+              {id === "why-us" ? "Why Us" : id === "faq" ? "FAQ" : id === "qualify" ? "Qualify" : id === "free-training" ? "Free Training" : "Testimonials"}
             </button>
           ))}
           <Button onClick={() => navigate("/book")} size="sm" className="gold-gradient text-primary-foreground font-semibold hover:scale-105 transition-all duration-300 btn-shine">
