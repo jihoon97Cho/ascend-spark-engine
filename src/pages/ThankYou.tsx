@@ -2,6 +2,7 @@ import { motion } from "framer-motion";
 import { ArrowLeft, AlertTriangle, Clock, CalendarX } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
+import { trackPageView } from "@/lib/leadTracking";
 import calendarReminder from "@/assets/calendar-reminder.png";
 
 const videos = [
@@ -24,6 +25,7 @@ const ThankYou = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
+    trackPageView('/thank-you');
     const script = document.createElement("script");
     script.src = "https://link.msgsndr.com/js/form_embed.js";
     script.async = true;

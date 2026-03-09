@@ -2,11 +2,13 @@ import { motion } from "framer-motion";
 import { ArrowLeft } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
+import { trackPageView } from "@/lib/leadTracking";
 
 const BookCall = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
+    trackPageView('/book');
     const script = document.createElement("script");
     script.src = "https://link.msgsndr.com/js/form_embed.js";
     script.async = true;
