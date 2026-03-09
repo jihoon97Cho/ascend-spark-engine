@@ -11,10 +11,6 @@ const faqs = [
     a: "We offer funding amounts ranging from $10,000 to $500,000 based on your business's needs and credit score.",
   },
   {
-    q: "How long does it take to get approved?",
-    a: "Our funding process typically takes about 30 days, however, we can help you secure funding in as quickly as 48 hours if you qualify.",
-  },
-  {
     q: "What are the interest rates and repayment terms?",
     a: "We focus on getting you 0% interest business credit cards. Terms vary across banks but are usually 12-18 months of 0% interest.",
   },
