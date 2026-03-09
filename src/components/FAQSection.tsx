@@ -34,6 +34,10 @@ const faqs = [
     q: "How long does this take?",
     a: "Most funding cases take 30 to 60 days. If your profile is already strong, it may move faster. If you need credit or profile optimization first, it may take longer. We focus on doing it the right way, not the rushed way, so you have the best chance at strong approvals.",
   },
+  {
+    q: "Will this hurt my credit?",
+    a: "There may be a temporary impact from inquiries, which is normal when applying for funding. The real risk comes from applying without a strategy. We help you optimize your profile first, avoid unnecessary mistakes, and apply in the right way to protect your approval odds as much as possible. Over time, many clients also improve their overall credit profile through the process.",
+  },
 ];
 
 const FAQSection = () => (
