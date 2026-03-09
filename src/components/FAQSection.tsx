@@ -23,10 +23,6 @@ const faqs = [
     a: "You can use the funds for anything business-related — expansion, payroll, equipment, marketing, real estate, inventory, and more.",
   },
   {
-    q: "What kind of support can I expect after receiving funding?",
-    a: "We provide ongoing financial coaching and expert advice to help you manage your capital and grow your business.",
-  },
-  {
     q: "How is this different from applying for business credit cards on my own?",
     a: "You can apply on your own. But most people apply without a real strategy and end up hurting their chances. We help you approach funding the right way from the start. That means knowing which banks are most likely to approve you, which order to apply in, how to space applications properly, and how to avoid mistakes that can lower your approval odds. Most people do not know how to read their profile the way lenders do. They do not know which accounts can help or hurt, which relationships matter, or how one wrong move can ruin months of progress. Our process is built to help you maximize approvals, protect your profile, and put yourself in the best position to access the most funding possible. That is why people work with us. The wrong application strategy can cost far more than our fee.",
   },
