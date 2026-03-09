@@ -100,7 +100,43 @@ const Dashboard = () => {
     return filterPageViewsByDate(allPageViews, getDateRange.start, getDateRange.end);
   }, [allPageViews, getDateRange]);
 
-  const funnel = useMemo(() => getFunnelMetrics(filteredEvents), [filteredEvents]);
+  // Available periods for funnel sub-filtering
+  const funnelPeriods = useMemo(() => {
+    if (funnelViewMode === 'all') return [];
+    const periods: { label: string; start: Date; end: Date }[] = [];
+    const now = new Date();
+    if (funnelViewMode === 'day') {
+      for (let i = 0; i < 30; i++) {
+        const d = subDays(now, i);
+        periods.push({ label: format(d, 'MMM d, yyyy'), start: startOfDay(d), end: endOfDay(d) });
+      }
+    } else if (funnelViewMode === 'week') {
+      for (let i = 0; i < 12; i++) {
+        const d = subWeeks(now, i);
+        const ws = startOfWeek(d);
+        const we = endOfWeek(d);
+        periods.push({ label: `${format(ws, 'MMM d')} – ${format(we, 'MMM d')}`, start: ws, end: we });
+      }
+    } else if (funnelViewMode === 'month') {
+      for (let i = 0; i < 12; i++) {
+        const d = subMonthsFn(now, i);
+        periods.push({ label: format(d, 'MMMM yyyy'), start: startOfMonth(d), end: endOfMonth(d) });
+      }
+    }
+    return periods;
+  }, [funnelViewMode]);
+
+  // Reset period index when mode changes
+  useEffect(() => { setFunnelPeriodIndex(0); }, [funnelViewMode]);
+
+  const funnelEvents = useMemo(() => {
+    if (funnelViewMode === 'all') return filteredEvents;
+    const period = funnelPeriods[funnelPeriodIndex];
+    if (!period) return filteredEvents;
+    return filterEventsByDate(allEvents, period.start, period.end);
+  }, [filteredEvents, allEvents, funnelViewMode, funnelPeriods, funnelPeriodIndex]);
+
+  const funnel = useMemo(() => getFunnelMetrics(funnelEvents), [funnelEvents]);
   const trend = useMemo(() => getDailyTrend(filteredEvents), [filteredEvents]);
   const pageMetrics = useMemo(() => getPageMetrics(filteredPageViews), [filteredPageViews]);
   const heatmapData = useMemo(() => getHeatmapData(filteredPageViews), [filteredPageViews]);
