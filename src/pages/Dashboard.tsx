@@ -48,6 +48,8 @@ const Dashboard = () => {
   const [selectedMonth, setSelectedMonth] = useState<string>('');
   const [selectedYear, setSelectedYear] = useState<string>(new Date().getFullYear().toString());
   const [funnelGrouping, setFunnelGrouping] = useState<FunnelGrouping>('day');
+  const [funnelViewMode, setFunnelViewMode] = useState<'all' | 'day' | 'week' | 'month'>('all');
+  const [funnelPeriodIndex, setFunnelPeriodIndex] = useState(0);
   const printRef = useRef<HTMLDivElement>(null);
   const { signOut } = useAuth();
   const navigate = useNavigate();
