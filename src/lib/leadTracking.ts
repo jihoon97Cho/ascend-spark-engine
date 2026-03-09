@@ -300,3 +300,62 @@ export function getDailyTrend(events: LeadEvent[]): { date: string; leads: numbe
       submissions: data.submissions.size,
     }));
 }
+
+export type FunnelGrouping = 'day' | 'week' | 'month';
+
+export interface FunnelTimeSeries {
+  period: string;
+  page_view: number;
+  form_start: number;
+  step_1_credit_score: number;
+  step_2_credit_limits: number;
+  step_3_capital_needed: number;
+  step_4_contact_info: number;
+  submitted: number;
+}
+
+function getWeekKey(date: Date): string {
+  const d = new Date(date);
+  d.setHours(0, 0, 0, 0);
+  d.setDate(d.getDate() - d.getDay()); // start of week (Sunday)
+  return d.toISOString().slice(0, 10);
+}
+
+export function getFunnelTimeSeries(events: LeadEvent[], grouping: FunnelGrouping): FunnelTimeSeries[] {
+  const steps: FunnelStep[] = ['page_view', 'form_start', 'step_1_credit_score', 'step_2_credit_limits', 'step_3_capital_needed', 'step_4_contact_info', 'submitted'];
+
+  // Group events by period, then count unique sessions per step
+  const periodMap = new Map<string, Map<FunnelStep, Set<string>>>();
+
+  events.forEach(e => {
+    const date = new Date(e.timestamp);
+    let key: string;
+    if (grouping === 'day') {
+      key = e.timestamp.slice(0, 10);
+    } else if (grouping === 'week') {
+      key = getWeekKey(date);
+    } else {
+      key = e.timestamp.slice(0, 7); // YYYY-MM
+    }
+
+    if (!periodMap.has(key)) {
+      const stepMap = new Map<FunnelStep, Set<string>>();
+      steps.forEach(s => stepMap.set(s, new Set()));
+      periodMap.set(key, stepMap);
+    }
+    periodMap.get(key)!.get(e.step)?.add(e.sessionId);
+  });
+
+  return Array.from(periodMap.entries())
+    .sort(([a], [b]) => a.localeCompare(b))
+    .map(([period, stepMap]) => ({
+      period,
+      page_view: stepMap.get('page_view')?.size || 0,
+      form_start: stepMap.get('form_start')?.size || 0,
+      step_1_credit_score: stepMap.get('step_1_credit_score')?.size || 0,
+      step_2_credit_limits: stepMap.get('step_2_credit_limits')?.size || 0,
+      step_3_capital_needed: stepMap.get('step_3_capital_needed')?.size || 0,
+      step_4_contact_info: stepMap.get('step_4_contact_info')?.size || 0,
+      submitted: stepMap.get('submitted')?.size || 0,
+    }));
+}
