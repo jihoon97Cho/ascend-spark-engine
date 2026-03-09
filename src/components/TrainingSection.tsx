@@ -1,19 +1,19 @@
 const trainings = [
   {
     title: "Get Approved For $100k+ In Just A Couple Weeks",
-    url: "https://assets.cdn.filesafe.space/bnmo2H6CkK9L4cUOXrpa/media/690e0b75b23abd7a7d6ef14c.png",
+    video: "https://assets.cdn.filesafe.space/bnmo2H6CkK9L4cUOXrpa/media/690e0901d13a2e2d9a82fb83.mp4",
   },
   {
     title: "Biggest Mistakes to Avoid When Trying To Secure Max Business Funding",
-    url: "https://assets.cdn.filesafe.space/bnmo2H6CkK9L4cUOXrpa/media/690e0b72ab4113c3074ed7f2.png",
+    video: "https://assets.cdn.filesafe.space/bnmo2H6CkK9L4cUOXrpa/media/690e087bc87c0f5580697d48.mp4",
   },
   {
     title: "The Perfect Credit Profile That Banks Love When Approving $50k Limits",
-    url: "https://assets.cdn.filesafe.space/bnmo2H6CkK9L4cUOXrpa/media/690e0b6ef069a04d460a5aa7.png",
+    video: "https://assets.cdn.filesafe.space/bnmo2H6CkK9L4cUOXrpa/media/690e0871ab4113b8b74e7f20.mp4",
   },
   {
     title: "The Biggest Funding Myths That Hold You Back From Securing 100k+ at 0%",
-    url: "https://assets.cdn.filesafe.space/bnmo2H6CkK9L4cUOXrpa/media/690e0b6927678e66dfe3249f.png",
+    video: "https://assets.cdn.filesafe.space/bnmo2H6CkK9L4cUOXrpa/media/690e0875f069a031240a03a9.mp4",
   },
 ];
 
@@ -28,24 +28,20 @@ const TrainingSection = () => (
       </div>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-8">
-        {trainings.map(({ title, url }, i) => (
+        {trainings.map(({ title, video }, i) => (
           <div key={i} className="flex flex-col items-center gap-4">
             <h3 className="text-base sm:text-lg font-bold text-center leading-snug min-h-[3rem]">
               {title}
             </h3>
-            <a
-              href={url}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="block w-full rounded-xl overflow-hidden border-2 border-[hsl(var(--gold))] hover:scale-[1.02] transition-transform duration-300 shadow-lg"
-            >
-              <img
-                src={url}
-                alt={title}
+            <div className="w-full rounded-xl overflow-hidden border-2 border-[hsl(var(--gold))] shadow-lg">
+              <video
+                src={video}
+                controls
+                preload="metadata"
+                playsInline
                 className="w-full aspect-video object-cover"
-                loading="lazy"
               />
-            </a>
+            </div>
           </div>
         ))}
       </div>
