@@ -38,6 +38,10 @@ const faqs = [
     q: "Will this hurt my credit?",
     a: "There may be a temporary impact from inquiries, which is normal when applying for funding. The real risk comes from applying without a strategy. We help you optimize your profile first, avoid unnecessary mistakes, and apply in the right way to protect your approval odds as much as possible. Over time, many clients also improve their overall credit profile through the process.",
   },
+  {
+    q: "Do I need an LLC or specific business structure?",
+    a: "Yes, you typically need a registered business entity to access business funding. For most people, an LLC is the simplest and most common option, though S corps and C corps can also work. We can provide you with an aged shelf corps with a minimum age of 4 years.",
+  },
 ];
 
 const FAQSection = () => (
