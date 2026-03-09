@@ -6,11 +6,20 @@ export interface LeadEvent {
   id: string;
   step: FunnelStep;
   value?: string;
+  page?: string;
   timestamp: string;
   sessionId: string;
 }
 
 const STORAGE_KEY = 'ascend_lead_events';
+const PAGE_VIEWS_KEY = 'ascend_page_views';
+
+export interface PageView {
+  id: string;
+  page: string;
+  timestamp: string;
+  sessionId: string;
+}
 
 function getSessionId(): string {
   let sid = sessionStorage.getItem('ascend_session');
@@ -26,12 +35,33 @@ export function trackEvent(step: FunnelStep, value?: string) {
     id: crypto.randomUUID(),
     step,
     value,
+    page: window.location.pathname,
     timestamp: new Date().toISOString(),
     sessionId: getSessionId(),
   };
   const events = getEvents();
   events.push(event);
   localStorage.setItem(STORAGE_KEY, JSON.stringify(events));
+}
+
+export function trackPageView(page?: string) {
+  const pv: PageView = {
+    id: crypto.randomUUID(),
+    page: page || window.location.pathname,
+    timestamp: new Date().toISOString(),
+    sessionId: getSessionId(),
+  };
+  const views = getPageViews();
+  views.push(pv);
+  localStorage.setItem(PAGE_VIEWS_KEY, JSON.stringify(views));
+}
+
+export function getPageViews(): PageView[] {
+  try {
+    return JSON.parse(localStorage.getItem(PAGE_VIEWS_KEY) || '[]');
+  } catch {
+    return [];
+  }
 }
 
 export function getEvents(): LeadEvent[] {
@@ -44,6 +74,19 @@ export function getEvents(): LeadEvent[] {
 
 export function clearEvents() {
   localStorage.removeItem(STORAGE_KEY);
+  localStorage.removeItem(PAGE_VIEWS_KEY);
+}
+
+// Page labels for display
+const PAGE_LABELS: Record<string, string> = {
+  '/': 'Home Page',
+  '/book': 'Qualification Form',
+  '/book-call': 'Book a Call',
+  '/thank-you': 'Thank You',
+};
+
+export function getPageLabel(path: string): string {
+  return PAGE_LABELS[path] || path;
 }
 
 // Seed demo data for the dashboard
@@ -53,8 +96,11 @@ export function seedDemoData() {
 
   const steps: FunnelStep[] = ['page_view', 'form_start', 'step_1_credit_score', 'step_2_credit_limits', 'step_3_capital_needed', 'step_4_contact_info', 'submitted'];
   const dropRates = [1, 0.72, 0.58, 0.41, 0.30, 0.22, 0.15];
+  const pages = ['/', '/book', '/book-call', '/thank-you'];
+  const pageWeights = [1, 0.65, 0.35, 0.15]; // relative traffic
 
   const events: LeadEvent[] = [];
+  const pageViews: PageView[] = [];
   const now = new Date();
 
   // Generate 6 months of data
@@ -63,12 +109,35 @@ export function seedDemoData() {
     const daysInMonth = new Date(baseDate.getFullYear(), baseDate.getMonth() + 1, 0).getDate();
 
     for (let day = 1; day <= daysInMonth; day++) {
-      const dailyVisitors = Math.floor(Math.random() * 30) + 15;
+      const dayOfWeek = new Date(baseDate.getFullYear(), baseDate.getMonth(), day).getDay();
+      // More traffic on weekdays
+      const weekdayMultiplier = dayOfWeek === 0 || dayOfWeek === 6 ? 0.6 : 1;
+      const dailyVisitors = Math.floor((Math.random() * 30 + 15) * weekdayMultiplier);
 
       for (let v = 0; v < dailyVisitors; v++) {
         const sessionId = crypto.randomUUID();
-        const hour = Math.floor(Math.random() * 14) + 8;
+        // Concentrate hours in business hours with some evening traffic
+        const hourWeights = [0,0,0,0,0,0.02,0.03,0.05,0.08,0.12,0.14,0.12,0.10,0.08,0.07,0.05,0.04,0.03,0.03,0.02,0.01,0.01,0,0];
+        let hour = 9;
+        const r = Math.random();
+        let cum = 0;
+        for (let h = 0; h < 24; h++) {
+          cum += hourWeights[h];
+          if (r <= cum) { hour = h; break; }
+        }
         const minute = Math.floor(Math.random() * 60);
+
+        // Track page views - each visitor views some pages
+        for (let p = 0; p < pages.length; p++) {
+          if (Math.random() <= pageWeights[p]) {
+            pageViews.push({
+              id: crypto.randomUUID(),
+              page: pages[p],
+              timestamp: new Date(baseDate.getFullYear(), baseDate.getMonth(), day, hour, minute + p).toISOString(),
+              sessionId,
+            });
+          }
+        }
 
         // Each visitor progresses through funnel with drop-off
         for (let s = 0; s < steps.length; s++) {
@@ -77,6 +146,7 @@ export function seedDemoData() {
           events.push({
             id: crypto.randomUUID(),
             step: steps[s],
+            page: s === 0 ? '/' : s < 5 ? '/book' : s === 5 ? '/book-call' : '/thank-you',
             timestamp: new Date(baseDate.getFullYear(), baseDate.getMonth(), day, hour, minute + s).toISOString(),
             sessionId,
           });
@@ -86,6 +156,11 @@ export function seedDemoData() {
   }
 
   localStorage.setItem(STORAGE_KEY, JSON.stringify([...existing, ...events]));
+  
+  const existingPV = getPageViews();
+  if (existingPV.length < 50) {
+    localStorage.setItem(PAGE_VIEWS_KEY, JSON.stringify([...existingPV, ...pageViews]));
+  }
 }
 
 // Analytics helpers
@@ -141,6 +216,68 @@ export function filterEventsByDate(events: LeadEvent[], start: Date, end: Date):
   return events.filter(e => {
     const d = new Date(e.timestamp);
     return d >= start && d <= end;
+  });
+}
+
+export function filterPageViewsByDate(views: PageView[], start: Date, end: Date): PageView[] {
+  return views.filter(v => {
+    const d = new Date(v.timestamp);
+    return d >= start && d <= end;
+  });
+}
+
+export interface PageMetrics {
+  page: string;
+  label: string;
+  uniqueVisitors: number;
+  totalViews: number;
+}
+
+export function getPageMetrics(views: PageView[]): PageMetrics[] {
+  const pageMap = new Map<string, { sessions: Set<string>; total: number }>();
+
+  views.forEach(v => {
+    if (!pageMap.has(v.page)) pageMap.set(v.page, { sessions: new Set(), total: 0 });
+    const entry = pageMap.get(v.page)!;
+    entry.sessions.add(v.sessionId);
+    entry.total++;
+  });
+
+  return Array.from(pageMap.entries())
+    .map(([page, data]) => ({
+      page,
+      label: getPageLabel(page),
+      uniqueVisitors: data.sessions.size,
+      totalViews: data.total,
+    }))
+    .sort((a, b) => b.uniqueVisitors - a.uniqueVisitors);
+}
+
+export interface HeatmapCell {
+  day: number; // 0=Sun, 6=Sat
+  hour: number; // 0-23
+  count: number;
+}
+
+export function getHeatmapData(views: PageView[]): HeatmapCell[] {
+  const grid = new Map<string, number>();
+
+  // Initialize all cells
+  for (let d = 0; d < 7; d++) {
+    for (let h = 0; h < 24; h++) {
+      grid.set(`${d}-${h}`, 0);
+    }
+  }
+
+  views.forEach(v => {
+    const date = new Date(v.timestamp);
+    const key = `${date.getDay()}-${date.getHours()}`;
+    grid.set(key, (grid.get(key) || 0) + 1);
+  });
+
+  return Array.from(grid.entries()).map(([key, count]) => {
+    const [day, hour] = key.split('-').map(Number);
+    return { day, hour, count };
   });
 }
 
