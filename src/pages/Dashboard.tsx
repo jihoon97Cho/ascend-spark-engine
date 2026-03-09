@@ -5,7 +5,7 @@ import {
   BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer,
   AreaChart, Area, Cell, Legend, LineChart, Line
 } from "recharts";
-import { format, startOfMonth, endOfMonth, startOfYear, endOfYear, startOfDay, endOfDay } from "date-fns";
+import { format, startOfMonth, endOfMonth, startOfYear, endOfYear, startOfDay, endOfDay, startOfWeek, endOfWeek, subDays, subWeeks, subMonths as subMonthsFn } from "date-fns";
 import { ArrowLeft, Printer, TrendingDown, Users, Target, AlertTriangle, Calendar, BarChart3, LogOut, Eye, Globe } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -48,6 +48,8 @@ const Dashboard = () => {
   const [selectedMonth, setSelectedMonth] = useState<string>('');
   const [selectedYear, setSelectedYear] = useState<string>(new Date().getFullYear().toString());
   const [funnelGrouping, setFunnelGrouping] = useState<FunnelGrouping>('day');
+  const [funnelViewMode, setFunnelViewMode] = useState<'all' | 'day' | 'week' | 'month'>('all');
+  const [funnelPeriodIndex, setFunnelPeriodIndex] = useState(0);
   const printRef = useRef<HTMLDivElement>(null);
   const { signOut } = useAuth();
   const navigate = useNavigate();
@@ -98,7 +100,43 @@ const Dashboard = () => {
     return filterPageViewsByDate(allPageViews, getDateRange.start, getDateRange.end);
   }, [allPageViews, getDateRange]);
 
-  const funnel = useMemo(() => getFunnelMetrics(filteredEvents), [filteredEvents]);
+  // Available periods for funnel sub-filtering
+  const funnelPeriods = useMemo(() => {
+    if (funnelViewMode === 'all') return [];
+    const periods: { label: string; start: Date; end: Date }[] = [];
+    const now = new Date();
+    if (funnelViewMode === 'day') {
+      for (let i = 0; i < 30; i++) {
+        const d = subDays(now, i);
+        periods.push({ label: format(d, 'MMM d, yyyy'), start: startOfDay(d), end: endOfDay(d) });
+      }
+    } else if (funnelViewMode === 'week') {
+      for (let i = 0; i < 12; i++) {
+        const d = subWeeks(now, i);
+        const ws = startOfWeek(d);
+        const we = endOfWeek(d);
+        periods.push({ label: `${format(ws, 'MMM d')} – ${format(we, 'MMM d')}`, start: ws, end: we });
+      }
+    } else if (funnelViewMode === 'month') {
+      for (let i = 0; i < 12; i++) {
+        const d = subMonthsFn(now, i);
+        periods.push({ label: format(d, 'MMMM yyyy'), start: startOfMonth(d), end: endOfMonth(d) });
+      }
+    }
+    return periods;
+  }, [funnelViewMode]);
+
+  // Reset period index when mode changes
+  useEffect(() => { setFunnelPeriodIndex(0); }, [funnelViewMode]);
+
+  const funnelEvents = useMemo(() => {
+    if (funnelViewMode === 'all') return filteredEvents;
+    const period = funnelPeriods[funnelPeriodIndex];
+    if (!period) return filteredEvents;
+    return filterEventsByDate(allEvents, period.start, period.end);
+  }, [filteredEvents, allEvents, funnelViewMode, funnelPeriods, funnelPeriodIndex]);
+
+  const funnel = useMemo(() => getFunnelMetrics(funnelEvents), [funnelEvents]);
   const trend = useMemo(() => getDailyTrend(filteredEvents), [filteredEvents]);
   const pageMetrics = useMemo(() => getPageMetrics(filteredPageViews), [filteredPageViews]);
   const heatmapData = useMemo(() => getHeatmapData(filteredPageViews), [filteredPageViews]);
@@ -382,10 +420,34 @@ const Dashboard = () => {
         {/* Funnel Visualization */}
         <Card className="mb-8 border-border/50 shadow-sm">
           <CardHeader className="pb-2">
-            <CardTitle className="text-lg flex items-center gap-2">
-              <TrendingDown size={18} className="text-primary" />
-              Funnel Drop-off Analysis
-            </CardTitle>
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+              <CardTitle className="text-lg flex items-center gap-2">
+                <TrendingDown size={18} className="text-primary" />
+                Funnel Drop-off Analysis
+              </CardTitle>
+              <div className="flex items-center gap-2 flex-wrap">
+                <Tabs value={funnelViewMode} onValueChange={(v) => setFunnelViewMode(v as 'all' | 'day' | 'week' | 'month')}>
+                  <TabsList className="bg-secondary/50 h-8">
+                    <TabsTrigger value="all" className="text-xs px-3 h-6">All</TabsTrigger>
+                    <TabsTrigger value="day" className="text-xs px-3 h-6">Day</TabsTrigger>
+                    <TabsTrigger value="week" className="text-xs px-3 h-6">Week</TabsTrigger>
+                    <TabsTrigger value="month" className="text-xs px-3 h-6">Month</TabsTrigger>
+                  </TabsList>
+                </Tabs>
+                {funnelViewMode !== 'all' && funnelPeriods.length > 0 && (
+                  <Select value={funnelPeriodIndex.toString()} onValueChange={(v) => setFunnelPeriodIndex(parseInt(v))}>
+                    <SelectTrigger className="w-48 h-8 text-xs">
+                      <SelectValue />
+                    </SelectTrigger>
+                    <SelectContent>
+                      {funnelPeriods.map((p, i) => (
+                        <SelectItem key={i} value={i.toString()}>{p.label}</SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                )}
+              </div>
+            </div>
           </CardHeader>
           <CardContent>
             {/* Visual funnel */}
