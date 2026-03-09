@@ -34,6 +34,10 @@ const faqs = [
     q: "How is this different from applying for business credit cards on my own?",
     a: "You can apply on your own. But most people apply without a real strategy and end up hurting their chances. We help you approach funding the right way from the start. That means knowing which banks are most likely to approve you, which order to apply in, how to space applications properly, and how to avoid mistakes that can lower your approval odds. Most people do not know how to read their profile the way lenders do. They do not know which accounts can help or hurt, which relationships matter, or how one wrong move can ruin months of progress. Our process is built to help you maximize approvals, protect your profile, and put yourself in the best position to access the most funding possible. That is why people work with us. The wrong application strategy can cost far more than our fee.",
   },
+  {
+    q: "What credit score do I actually need?",
+    a: "A 700+ credit score gives you the strongest chance at higher approvals and better funding results. If you are in the 650 to 699 range, you may still have options, but we usually recommend improving your profile first so you can qualify more strategically and avoid wasting good bank relationships too early. If you are below 650, the focus should usually be on credit improvement first. Once your score and overall profile are in a stronger position, we can then move into the funding phase with much better approval odds. Your score is important, but it is not the only factor. Banks also look at things like utilization, payment history, account age, inquiries, and overall credit strength.",
+  },
 ];
 
 const FAQSection = () => (
