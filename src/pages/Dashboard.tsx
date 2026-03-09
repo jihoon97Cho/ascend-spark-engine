@@ -5,8 +5,8 @@ import {
   BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer,
   AreaChart, Area, Cell
 } from "recharts";
-import { format, startOfMonth, endOfMonth, startOfYear, endOfYear, subMonths, startOfDay, endOfDay } from "date-fns";
-import { ArrowLeft, Printer, TrendingDown, Users, Target, AlertTriangle, Calendar, BarChart3, LogOut } from "lucide-react";
+import { format, startOfMonth, endOfMonth, startOfYear, endOfYear, startOfDay, endOfDay } from "date-fns";
+import { ArrowLeft, Printer, TrendingDown, Users, Target, AlertTriangle, Calendar, BarChart3, LogOut, Eye, Globe } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
@@ -15,7 +15,8 @@ import {
 } from "@/components/ui/select";
 import {
   getEvents, getFunnelMetrics, filterEventsByDate, getDailyTrend,
-  seedDemoData, type LeadEvent, type FunnelMetrics
+  seedDemoData, getPageViews, filterPageViewsByDate, getPageMetrics, getHeatmapData,
+  type LeadEvent, type FunnelMetrics, type PageView
 } from "@/lib/leadTracking";
 import logo from "@/assets/logo.png";
 import { useAuth } from "@/hooks/useAuth";
@@ -27,8 +28,21 @@ const MONTHS = [
   'July', 'August', 'September', 'October', 'November', 'December'
 ];
 
+const DAYS_SHORT = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+
+function getHeatmapColor(value: number, max: number): string {
+  if (max === 0 || value === 0) return 'hsl(var(--muted) / 0.3)';
+  const ratio = value / max;
+  // Green (120) → Yellow (60) → Red (0)
+  const hue = 120 - (ratio * 120);
+  const saturation = 50 + ratio * 30;
+  const lightness = 45 - ratio * 10;
+  return `hsl(${hue} ${saturation}% ${lightness}%)`;
+}
+
 const Dashboard = () => {
   const [allEvents, setAllEvents] = useState<LeadEvent[]>([]);
+  const [allPageViews, setAllPageViews] = useState<PageView[]>([]);
   const [dateRange, setDateRange] = useState<DateRange>('last30');
   const [selectedMonth, setSelectedMonth] = useState<string>('');
   const [selectedYear, setSelectedYear] = useState<string>(new Date().getFullYear().toString());
@@ -44,47 +58,50 @@ const Dashboard = () => {
   useEffect(() => {
     seedDemoData();
     setAllEvents(getEvents());
+    setAllPageViews(getPageViews());
   }, []);
 
-  const filteredEvents = useMemo(() => {
+  const getDateRange = useMemo(() => {
     const now = new Date();
-    let start: Date, end: Date;
-
     switch (dateRange) {
       case 'today':
-        start = startOfDay(now);
-        end = endOfDay(now);
-        break;
+        return { start: startOfDay(now), end: endOfDay(now) };
       case 'last7':
-        start = startOfDay(new Date(now.getTime() - 7 * 86400000));
-        end = endOfDay(now);
-        break;
+        return { start: startOfDay(new Date(now.getTime() - 7 * 86400000)), end: endOfDay(now) };
       case 'last30':
-        start = startOfDay(new Date(now.getTime() - 30 * 86400000));
-        end = endOfDay(now);
-        break;
-      case 'month':
+        return { start: startOfDay(new Date(now.getTime() - 30 * 86400000)), end: endOfDay(now) };
+      case 'month': {
         const monthIdx = selectedMonth ? MONTHS.indexOf(selectedMonth) : now.getMonth();
         const yr = parseInt(selectedYear) || now.getFullYear();
         const d = new Date(yr, monthIdx, 1);
-        start = startOfMonth(d);
-        end = endOfMonth(d);
-        break;
-      case 'year':
+        return { start: startOfMonth(d), end: endOfMonth(d) };
+      }
+      case 'year': {
         const y = parseInt(selectedYear) || now.getFullYear();
-        start = startOfYear(new Date(y, 0, 1));
-        end = endOfYear(new Date(y, 0, 1));
-        break;
+        return { start: startOfYear(new Date(y, 0, 1)), end: endOfYear(new Date(y, 0, 1)) };
+      }
       case 'all':
       default:
-        return allEvents;
+        return null;
     }
+  }, [dateRange, selectedMonth, selectedYear]);
 
-    return filterEventsByDate(allEvents, start, end);
-  }, [allEvents, dateRange, selectedMonth, selectedYear]);
+  const filteredEvents = useMemo(() => {
+    if (!getDateRange) return allEvents;
+    return filterEventsByDate(allEvents, getDateRange.start, getDateRange.end);
+  }, [allEvents, getDateRange]);
+
+  const filteredPageViews = useMemo(() => {
+    if (!getDateRange) return allPageViews;
+    return filterPageViewsByDate(allPageViews, getDateRange.start, getDateRange.end);
+  }, [allPageViews, getDateRange]);
 
   const funnel = useMemo(() => getFunnelMetrics(filteredEvents), [filteredEvents]);
   const trend = useMemo(() => getDailyTrend(filteredEvents), [filteredEvents]);
+  const pageMetrics = useMemo(() => getPageMetrics(filteredPageViews), [filteredPageViews]);
+  const heatmapData = useMemo(() => getHeatmapData(filteredPageViews), [filteredPageViews]);
+
+  const heatmapMax = useMemo(() => Math.max(...heatmapData.map(c => c.count), 1), [heatmapData]);
 
   const worstDropOff = useMemo(() => {
     const droppable = funnel.filter(f => f.dropOffPercent > 0);
@@ -235,6 +252,129 @@ const Dashboard = () => {
             color="hsl(0 70% 55%)"
           />
         </div>
+
+        {/* Page-Level Unique Visitors */}
+        <Card className="mb-8 border-border/50 shadow-sm">
+          <CardHeader className="pb-2">
+            <CardTitle className="text-lg flex items-center gap-2">
+              <Globe size={18} className="text-primary" />
+              Unique Visitors by Page
+            </CardTitle>
+          </CardHeader>
+          <CardContent>
+            <div className="grid gap-3">
+              {pageMetrics.map((pm, i) => {
+                const maxVisitors = pageMetrics[0]?.uniqueVisitors || 1;
+                const widthPercent = Math.max((pm.uniqueVisitors / maxVisitors) * 100, 8);
+                return (
+                  <motion.div
+                    key={pm.page}
+                    initial={{ opacity: 0, x: -20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: i * 0.05 }}
+                    className="flex items-center gap-3"
+                  >
+                    <div className="w-36 sm:w-44 text-right text-xs sm:text-sm text-muted-foreground shrink-0 truncate">
+                      {pm.label}
+                    </div>
+                    <div className="flex-1 relative">
+                      <div
+                        className="h-10 rounded-md flex items-center justify-between px-3 text-xs font-bold transition-all"
+                        style={{
+                          width: `${widthPercent}%`,
+                          background: `linear-gradient(90deg, hsl(45 100% 44% / ${1 - i * 0.15}), hsl(38 90% 50% / ${1 - i * 0.15}))`,
+                          color: 'hsl(0 0% 100%)',
+                          minWidth: '120px',
+                        }}
+                      >
+                        <span>{pm.uniqueVisitors.toLocaleString()} unique</span>
+                        <span className="opacity-70 text-[10px]">{pm.totalViews.toLocaleString()} total</span>
+                      </div>
+                    </div>
+                  </motion.div>
+                );
+              })}
+            </div>
+
+            {pageMetrics.length === 0 && (
+              <p className="text-muted-foreground text-sm text-center py-8">No page view data for this period</p>
+            )}
+          </CardContent>
+        </Card>
+
+        {/* Heatmap: Page Views by Day & Hour */}
+        <Card className="mb-8 border-border/50 shadow-sm">
+          <CardHeader className="pb-2">
+            <CardTitle className="text-lg flex items-center gap-2">
+              <Eye size={18} className="text-primary" />
+              Traffic Heatmap — Day of Week & Hour
+            </CardTitle>
+          </CardHeader>
+          <CardContent>
+            <div className="overflow-x-auto">
+              <div className="min-w-[700px]">
+                {/* Hour labels */}
+                <div className="flex items-center mb-1">
+                  <div className="w-12 shrink-0" />
+                  {Array.from({ length: 24 }, (_, h) => (
+                    <div key={h} className="flex-1 text-center text-[10px] text-muted-foreground font-medium">
+                      {h === 0 ? '12a' : h < 12 ? `${h}a` : h === 12 ? '12p' : `${h - 12}p`}
+                    </div>
+                  ))}
+                </div>
+
+                {/* Heatmap grid */}
+                {DAYS_SHORT.map((dayLabel, dayIdx) => (
+                  <div key={dayIdx} className="flex items-center gap-0 mb-[2px]">
+                    <div className="w-12 shrink-0 text-xs text-muted-foreground font-medium text-right pr-2">
+                      {dayLabel}
+                    </div>
+                    {Array.from({ length: 24 }, (_, h) => {
+                      const cell = heatmapData.find(c => c.day === dayIdx && c.hour === h);
+                      const count = cell?.count || 0;
+                      return (
+                        <div
+                          key={h}
+                          className="flex-1 aspect-square rounded-[3px] mx-[1px] cursor-default transition-transform hover:scale-125 hover:z-10 relative group"
+                          style={{
+                            backgroundColor: getHeatmapColor(count, heatmapMax),
+                            minHeight: '20px',
+                          }}
+                        >
+                          {/* Tooltip */}
+                          <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 hidden group-hover:block z-50 pointer-events-none">
+                            <div className="bg-card border border-border rounded-md px-2 py-1 shadow-lg text-xs whitespace-nowrap">
+                              <span className="font-semibold">{count}</span>
+                              <span className="text-muted-foreground"> views</span>
+                              <div className="text-muted-foreground text-[10px]">
+                                {dayLabel} {h === 0 ? '12:00 AM' : h < 12 ? `${h}:00 AM` : h === 12 ? '12:00 PM' : `${h - 12}:00 PM`}
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      );
+                    })}
+                  </div>
+                ))}
+
+                {/* Legend */}
+                <div className="flex items-center justify-end gap-2 mt-4">
+                  <span className="text-xs text-muted-foreground">Less</span>
+                  <div className="flex gap-[2px]">
+                    {[0, 0.2, 0.4, 0.6, 0.8, 1].map((ratio) => (
+                      <div
+                        key={ratio}
+                        className="w-4 h-4 rounded-[2px]"
+                        style={{ backgroundColor: ratio === 0 ? 'hsl(var(--muted) / 0.3)' : getHeatmapColor(ratio * heatmapMax, heatmapMax) }}
+                      />
+                    ))}
+                  </div>
+                  <span className="text-xs text-muted-foreground">More</span>
+                </div>
+              </div>
+            </div>
+          </CardContent>
+        </Card>
 
         {/* Funnel Visualization */}
         <Card className="mb-8 border-border/50 shadow-sm">
