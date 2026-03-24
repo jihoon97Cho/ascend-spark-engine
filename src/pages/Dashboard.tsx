@@ -6,7 +6,7 @@ import {
   AreaChart, Area, Cell, Legend, LineChart, Line
 } from "recharts";
 import { format, startOfMonth, endOfMonth, startOfYear, endOfYear, startOfDay, endOfDay, startOfWeek, endOfWeek, subDays, subWeeks, subMonths as subMonthsFn } from "date-fns";
-import { ArrowLeft, Printer, TrendingDown, Users, Target, AlertTriangle, Calendar, BarChart3, LogOut, Eye, Globe } from "lucide-react";
+import { ArrowLeft, Printer, TrendingDown, Users, Target, AlertTriangle, Calendar, BarChart3, LogOut, Eye, Globe, Trash2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
@@ -16,7 +16,7 @@ import {
 import {
   getEvents, getFunnelMetrics, filterEventsByDate, getDailyTrend,
   seedDemoData, getPageViews, filterPageViewsByDate, getPageMetrics, getHeatmapData,
-  getFunnelTimeSeries,
+  getFunnelTimeSeries, clearEvents,
   type LeadEvent, type FunnelMetrics, type PageView, type FunnelGrouping
 } from "@/lib/leadTracking";
 import logo from "@/assets/logo.png";
@@ -57,6 +57,14 @@ const Dashboard = () => {
   const handleSignOut = async () => {
     await signOut();
     navigate("/login");
+  };
+
+  const handleResetData = () => {
+    if (window.confirm("Are you sure you want to reset all analytics data? This cannot be undone.")) {
+      clearEvents();
+      setAllEvents([]);
+      setAllPageViews([]);
+    }
   };
 
   useEffect(() => {
@@ -200,6 +208,9 @@ const Dashboard = () => {
             </Link>
             <Button onClick={handlePrint} variant="outline" size="sm" className="print:hidden">
               <Printer size={16} className="mr-1" /> Print Report
+            </Button>
+            <Button onClick={handleResetData} variant="outline" size="sm" className="text-destructive border-destructive/30 hover:bg-destructive/10 print:hidden">
+              <Trash2 size={16} className="mr-1" /> Reset Data
             </Button>
             <Button onClick={handleSignOut} variant="ghost" size="sm" className="text-muted-foreground print:hidden">
               <LogOut size={16} className="mr-1" /> Sign Out
