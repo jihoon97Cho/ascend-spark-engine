@@ -74,6 +74,16 @@ const HeroSection = () => {
           </div>
         </motion.div>
 
+        <motion.div {...fadeUp(0.55)} className="w-full max-w-2xl mx-auto mb-10 rounded-2xl overflow-hidden border border-border shadow-lg">
+          <video
+            src="https://assets.cdn.filesafe.space/bnmo2H6CkK9L4cUOXrpa/media/6961882a87370d6adafb9223.mp4"
+            controls
+            playsInline
+            preload="metadata"
+            className="w-full aspect-video bg-black"
+          />
+        </motion.div>
+
         <motion.div {...fadeUp(0.6)} className="flex flex-col items-center gap-4 mb-8">
           <Button
             onClick={goToBook}
