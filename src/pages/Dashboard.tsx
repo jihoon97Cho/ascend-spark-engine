@@ -59,6 +59,14 @@ const Dashboard = () => {
     navigate("/login");
   };
 
+  const handleResetData = () => {
+    if (window.confirm("Are you sure you want to reset all analytics data? This cannot be undone.")) {
+      clearEvents();
+      setAllEvents([]);
+      setAllPageViews([]);
+    }
+  };
+
   useEffect(() => {
     seedDemoData();
     setAllEvents(getEvents());
