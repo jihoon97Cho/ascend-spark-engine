@@ -6,7 +6,7 @@ import {
   AreaChart, Area, Cell, Legend, LineChart, Line
 } from "recharts";
 import { format, startOfMonth, endOfMonth, startOfYear, endOfYear, startOfDay, endOfDay, startOfWeek, endOfWeek, subDays, subWeeks, subMonths as subMonthsFn } from "date-fns";
-import { ArrowLeft, Printer, TrendingDown, Users, Target, AlertTriangle, Calendar, BarChart3, LogOut, Eye, Globe } from "lucide-react";
+import { ArrowLeft, Printer, TrendingDown, Users, Target, AlertTriangle, Calendar, BarChart3, LogOut, Eye, Globe, Trash2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
