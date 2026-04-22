@@ -65,7 +65,7 @@ const FundingBlueprintPage = () => {
             Most "business funding" content on the internet is either lying to you or selling you a course.
           </p>
           <p className="mb-4 text-lg leading-relaxed">
-            The "no doc $50K guaranteed by law" people? Fraud. The "1099-OID secret bank loophole" people? Fraud, and a crime. The folks promising you funding without touching your personal credit? Half-true.
+            The "$50K guaranteed by law" people? Fraud. The "1099-OID secret bank loophole" people? Fraud, and a crime. The folks promising you funding without touching your personal credit at all? Half-true.
           </p>
           <p className="mb-4 text-lg leading-relaxed">
             What's true: you can legally stack $50K–$150K in business credit in 90–180 days if you do every step right. The banks call it <strong>SBSS lending</strong> and they've been doing it for 30 years. They just don't advertise it because it doesn't make them money on application fees.
@@ -122,13 +122,26 @@ const FundingBlueprintPage = () => {
             <li><strong>No "risky" industries</strong> — banks blacklist certain NAICS codes automatically</li>
           </ul>
 
-          <h3 className="mt-8 mb-3 text-xl font-bold">Income & Bank Profile</h3>
+          <h3 className="mt-8 mb-3 text-xl font-bold">Income (No Docs Required)</h3>
+          <p className="mb-4 text-lg leading-relaxed">
+            Here's the part most people don't realize: the path we use is{" "}
+            <strong>no-doc</strong>. No tax returns. No bank statements. No P&L. No 2 years
+            of business revenue required. The lenders on this track underwrite based on
+            your personal credit profile and stated income — that's it.
+          </p>
           <ul className="mb-6 space-y-2 pl-6 text-lg list-disc">
-            <li><strong>Provable income</strong> — W-2, 1099, or business revenue. Stated income works on some apps but caps your ceiling.</li>
-            <li><strong>$75K+ in combined provable income</strong> to credibly ask for $100K+</li>
-            <li><strong>Primary bank relationship</strong> — 3+ months with decent average daily balance</li>
-            <li><strong>No NSFs or overdrafts</strong> in the last 90 days</li>
+            <li><strong>Stated income</strong> — you declare it on the application, no pay stubs, no W-2 upload</li>
+            <li><strong>No tax returns</strong> required</li>
+            <li><strong>No bank statements</strong> required</li>
+            <li><strong>No revenue history</strong> required — brand-new LLCs qualify</li>
+            <li><strong>No collateral</strong> — these are unsecured lines and cards</li>
           </ul>
+          <Callout>
+            <strong>Why this matters:</strong> SBA and traditional business loans demand
+            2 years of tax returns, P&L, projections, and collateral — and take 45–90 days.
+            The no-doc credit stacking path closes in 2–3 weeks with zero paperwork beyond
+            the application itself. That's the whole edge.
+          </Callout>
 
           <Callout>
             <strong>Quick self-check:</strong> Hit the 4 main ones? You're ready to stack.
@@ -393,7 +406,7 @@ const FundingBlueprintPage = () => {
 
           <div className="mt-8 flex items-center justify-center gap-2 text-sm text-slate-400">
             <AlertTriangle className="h-4 w-4" />
-            Not a fit: "no doc / no PG" expectations, 1099-OID schemes, or wanting funding without 720+ FICO.
+            Not a fit: 1099-OID schemes, "no PG" expectations, or wanting funding without a 700+ score and a clean report.
           </div>
         </section>
       </article>
