@@ -81,18 +81,29 @@ const FundingBlueprintPage = () => {
             <CheckCircle2 className="h-8 w-8 text-primary" /> What You Need To Qualify For Max Funding
           </h2>
           <p className="mb-4 text-lg leading-relaxed">
-            Before you do anything else, understand the bar. This is the profile underwriters
-            want to see when you're going for <strong>$100K+ in a single stacking round</strong>.
-            If you're short on any of these, that's not a dealbreaker — it's your checklist.
+            Before you do anything else, understand the bar. If you hit the 4 items below,
+            you're in the game. Everything after that is optimization.
           </p>
 
-          <h3 className="mt-8 mb-3 text-xl font-bold">Personal Credit</h3>
+          <h3 className="mt-8 mb-3 text-xl font-bold">The 4 That Actually Matter</h3>
+          <ul className="mb-6 space-y-3 pl-6 text-lg list-disc">
+            <li><strong>700+ credit score.</strong> This is the floor. Under 700 and most prime banks auto-deny before a human ever looks.</li>
+            <li><strong>At least 1 personal credit card with a $5K limit.</strong> Banks mirror what they see. Your highest existing limit anchors what they'll approve you for.</li>
+            <li><strong>$15K+ in total revolving limits (ideal).</strong> Not required, but this is where approvals start hitting the $10K–$25K per card range instead of toy limits.</li>
+            <li><strong>No negatives on your credit report.</strong> No collections, no charge-offs, no late payments. One derogatory can cut your total approvals in half.</li>
+          </ul>
+
+          <Callout>
+            <strong>The shortcut read:</strong> 700 score + one $5K card + clean report = you're
+            ready. Add $15K+ in total limits and you're in the top bracket where six-figure
+            stacks happen.
+          </Callout>
+
+          <h3 className="mt-8 mb-3 text-xl font-bold">Nice To Have (But Not Required)</h3>
           <ul className="mb-6 space-y-2 pl-6 text-lg list-disc">
-            <li><strong>FICO 720+</strong> on all 3 bureaus (mid-score is what underwriters pull)</li>
-            <li><strong>Zero derogatories</strong> — no collections, charge-offs, late payments in the last 24 months</li>
-            <li><strong>3+ open revolving accounts</strong> with limits of $5K+ each</li>
-            <li><strong>1–2 installment loans</strong> (auto, personal, student) in good standing</li>
-            <li><strong>Utilization under 10%</strong> on the day you apply (reporting date, not due date)</li>
+            <li><strong>3+ open revolving accounts</strong> — more tradelines = more mirroring</li>
+            <li><strong>1–2 installment loans</strong> in good standing (mix helps)</li>
+            <li><strong>Utilization under 10%</strong> on the day you apply</li>
             <li><strong>Fewer than 3 hard inquiries</strong> in the last 6 months, per bureau</li>
             <li><strong>Oldest account 2+ years old</strong></li>
           </ul>
@@ -120,9 +131,9 @@ const FundingBlueprintPage = () => {
           </ul>
 
           <Callout>
-            <strong>Quick self-check:</strong> If you hit 80%+ of the above, you're ready to
-            stack. 50–80%, you need 60–90 days of prep first. Under 50%, you need the credit
-            side handled before funding even becomes a conversation.
+            <strong>Quick self-check:</strong> Hit the 4 main ones? You're ready to stack.
+            Missing 1–2? 60–90 days of prep first. Under 700 or carrying negatives? The
+            credit side has to get handled before funding is even a real conversation.
           </Callout>
 
           <p className="mb-4 text-lg leading-relaxed">
