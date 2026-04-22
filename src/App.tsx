@@ -13,6 +13,7 @@ import Dashboard from "./pages/Dashboard";
 import Login from "./pages/Login";
 import Terms from "./pages/Terms";
 import Privacy from "./pages/Privacy";
+import FundingBlueprintPage from "./pages/FundingBlueprintPage";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -32,6 +33,8 @@ const App = () => (
             <Route path="/login" element={<Login />} />
             <Route path="/terms" element={<Terms />} />
             <Route path="/privacy" element={<Privacy />} />
+            <Route path="/blueprint" element={<FundingBlueprintPage />} />
+            <Route path="/funding-blueprint" element={<FundingBlueprintPage />} />
             <Route path="/dashboard" element={
               <ProtectedRoute>
                 <Dashboard />
