@@ -76,6 +76,63 @@ const FundingBlueprintPage = () => {
         </section>
 
         <section className="mt-16 border-t border-border pt-12">
+          <SectionTag>The Bar</SectionTag>
+          <h2 className="mb-5 text-3xl font-extrabold md:text-4xl flex items-center gap-3">
+            <CheckCircle2 className="h-8 w-8 text-primary" /> What You Need To Qualify For Max Funding
+          </h2>
+          <p className="mb-4 text-lg leading-relaxed">
+            Before you do anything else, understand the bar. This is the profile underwriters
+            want to see when you're going for <strong>$100K+ in a single stacking round</strong>.
+            If you're short on any of these, that's not a dealbreaker — it's your checklist.
+          </p>
+
+          <h3 className="mt-8 mb-3 text-xl font-bold">Personal Credit</h3>
+          <ul className="mb-6 space-y-2 pl-6 text-lg list-disc">
+            <li><strong>FICO 720+</strong> on all 3 bureaus (mid-score is what underwriters pull)</li>
+            <li><strong>Zero derogatories</strong> — no collections, charge-offs, late payments in the last 24 months</li>
+            <li><strong>3+ open revolving accounts</strong> with limits of $5K+ each</li>
+            <li><strong>1–2 installment loans</strong> (auto, personal, student) in good standing</li>
+            <li><strong>Utilization under 10%</strong> on the day you apply (reporting date, not due date)</li>
+            <li><strong>Fewer than 3 hard inquiries</strong> in the last 6 months, per bureau</li>
+            <li><strong>Oldest account 2+ years old</strong></li>
+          </ul>
+
+          <h3 className="mt-8 mb-3 text-xl font-bold">Business Foundation</h3>
+          <ul className="mb-6 space-y-2 pl-6 text-lg list-disc">
+            <li><strong>LLC or Corp</strong> — not a sole prop. Filed with state, not just DBA.</li>
+            <li><strong>EIN</strong> tied to the entity (not your SSN)</li>
+            <li><strong>Dedicated business address</strong> — not a PO box, not your home if avoidable</li>
+            <li><strong>Business phone number</strong> listed in 411 directory</li>
+            <li><strong>Business email</strong> on a custom domain (not gmail)</li>
+            <li><strong>Business bank account</strong> open 3+ months with consistent deposits</li>
+            <li><strong>Matching NAICS code</strong> — the right industry code can literally double your approvals</li>
+            <li><strong>Website</strong> — basic, but real and matching the business name</li>
+            <li><strong>DUNS number</strong> registered (free, but most skip it)</li>
+            <li><strong>No "risky" industries</strong> — banks blacklist certain NAICS codes automatically</li>
+          </ul>
+
+          <h3 className="mt-8 mb-3 text-xl font-bold">Income & Bank Profile</h3>
+          <ul className="mb-6 space-y-2 pl-6 text-lg list-disc">
+            <li><strong>Provable income</strong> — W-2, 1099, or business revenue. Stated income works on some apps but caps your ceiling.</li>
+            <li><strong>$75K+ in combined provable income</strong> to credibly ask for $100K+</li>
+            <li><strong>Primary bank relationship</strong> — 3+ months with decent average daily balance</li>
+            <li><strong>No NSFs or overdrafts</strong> in the last 90 days</li>
+          </ul>
+
+          <Callout>
+            <strong>Quick self-check:</strong> If you hit 80%+ of the above, you're ready to
+            stack. 50–80%, you need 60–90 days of prep first. Under 50%, you need the credit
+            side handled before funding even becomes a conversation.
+          </Callout>
+
+          <p className="mb-4 text-lg leading-relaxed">
+            The good news: every single item on this list is fixable in under 90 days with
+            the right sequence. The bad news: doing them in the wrong order (or skipping
+            one) is the #1 reason people get denied when they "should" have been approved.
+          </p>
+        </section>
+
+        <section className="mt-16 border-t border-border pt-12">
           <SectionTag>Part 1</SectionTag>
           <h2 className="mb-5 text-3xl font-extrabold">The 3 Real Funding Paths</h2>
           <p className="mb-6 text-lg leading-relaxed">
