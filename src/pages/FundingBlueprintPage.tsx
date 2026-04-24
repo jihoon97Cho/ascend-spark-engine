@@ -60,6 +60,38 @@ const FundingBlueprintPage = () => {
 
       <article className="mx-auto -mt-10 max-w-3xl rounded-2xl bg-card px-6 py-12 shadow-xl md:px-12 md:py-16">
 
+        {/* ═══════════════ Pull Your Credit First ═══════════════ */}
+        <section className="mb-12 rounded-2xl border-2 border-primary/30 bg-primary/5 p-6 md:p-8">
+          <div className="flex items-start gap-4">
+            <CreditCard className="h-10 w-10 shrink-0 text-primary mt-1" />
+            <div className="flex-1">
+              <div className="text-xs font-bold uppercase tracking-[0.2em] text-primary mb-2">
+                Step Zero
+              </div>
+              <h3 className="text-2xl font-extrabold mb-3">Pull Your Credit Report First</h3>
+              <p className="mb-4 text-base leading-relaxed">
+                Before anything else — before an LLC, before applying anywhere — you need
+                to see what the banks will see. We use <strong>SmartCredit</strong> because it pulls
+                all 3 bureaus, shows your FICO scores, and updates in real time so you can
+                watch your profile move as we clean it up.
+              </p>
+              <a
+                href="https://www.smartcredit.com/join/?pid=74943"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <Button size="lg" className="bg-primary text-primary-foreground hover:bg-primary/90">
+                  Sign up for SmartCredit <ArrowRight className="ml-2 h-4 w-4" />
+                </Button>
+              </a>
+              <p className="mt-3 text-sm text-muted-foreground">
+                Takes 5 minutes. You'll need your report in hand before the rest of this
+                guide makes sense.
+              </p>
+            </div>
+          </div>
+        </section>
+
         <section>
           <h2 className="mb-5 text-3xl font-extrabold md:text-4xl">Before You Start</h2>
           <p className="mb-4 text-lg leading-relaxed">
