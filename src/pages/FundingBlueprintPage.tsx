@@ -168,10 +168,10 @@ const FundingBlueprintPage = () => {
           </p>
           <StatGrid
             stats={[
-              { prefix: "$", value: 150000, label: "Avg round approval" },
-              { prefix: "", suffix: "%", value: 0, label: "APR for 12 months" },
-              { prefix: "", suffix: " days", value: 14, label: "Typical close time" },
-              { prefix: "", suffix: "+", value: 6, label: "Banks in one stack" },
+              { prefix: "$", suffix: "K", value: 150, label: "Avg round approval" },
+              { suffix: "%", value: 0, label: "APR for 12 months" },
+              { suffix: " days", value: 14, label: "Typical close time" },
+              { suffix: "+", value: 6, label: "Banks in one stack" },
             ]}
           />
           <p className="mb-4 text-lg leading-relaxed text-muted-foreground">
