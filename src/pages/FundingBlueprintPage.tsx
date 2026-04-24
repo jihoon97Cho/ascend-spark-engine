@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { ArrowRight, CheckCircle2, AlertTriangle, Building2, CreditCard, TrendingUp, Layers } from "lucide-react";
+import { ArrowRight, CheckCircle2, AlertTriangle, Building2, CreditCard, TrendingUp, Layers, Zap, Clock, DollarSign } from "lucide-react";
+import { AnimatedCounter, StackBars, Timeline, CompareCard, StatGrid } from "@/components/Infographics";
 
 const SectionTag = ({ children }: { children: React.ReactNode }) => (
   <div className="inline-block text-xs font-bold tracking-[0.2em] uppercase text-primary mb-3">
@@ -153,6 +154,141 @@ const FundingBlueprintPage = () => {
             The good news: every single item on this list is fixable in under 90 days with
             the right sequence. The bad news: doing them in the wrong order (or skipping
             one) is the #1 reason people get denied when they "should" have been approved.
+          </p>
+        </section>
+
+        {/* ═══════════════ Stats Snapshot ═══════════════ */}
+        <section className="mt-16 border-t border-border pt-12">
+          <SectionTag>Snapshot</SectionTag>
+          <h2 className="mb-5 text-3xl font-extrabold flex items-center gap-3">
+            <Zap className="h-8 w-8 text-primary" /> The Numbers That Matter
+          </h2>
+          <p className="mb-4 text-lg leading-relaxed">
+            This is the real shape of a no-doc stacking round when the profile's clean:
+          </p>
+          <StatGrid
+            stats={[
+              { prefix: "$", value: 150000, label: "Avg round approval" },
+              { prefix: "", suffix: "%", value: 0, label: "APR for 12 months" },
+              { prefix: "", suffix: " days", value: 14, label: "Typical close time" },
+              { prefix: "", suffix: "+", value: 6, label: "Banks in one stack" },
+            ]}
+          />
+          <p className="mb-4 text-lg leading-relaxed text-muted-foreground">
+            These aren't aspirational numbers — they're median outcomes for clients who hit
+            the 4 qualifiers above. Clients with thicker files, higher scores, and aged
+            tradelines frequently clear $250K+ in a single round.
+          </p>
+        </section>
+
+        {/* ═══════════════ Funding vs SBA Comparison ═══════════════ */}
+        <section className="mt-16 border-t border-border pt-12">
+          <SectionTag>Head to Head</SectionTag>
+          <h2 className="mb-5 text-3xl font-extrabold flex items-center gap-3">
+            <Clock className="h-8 w-8 text-primary" /> No-Doc Stacking vs. SBA Loans
+          </h2>
+          <p className="mb-6 text-lg leading-relaxed">
+            The #1 question we get: "Why not just go SBA?" Here's the head-to-head on a
+            $100K need:
+          </p>
+          <StackBars
+            unit=""
+            items={[
+              { label: "SBA 7(a)", sub: "APR", value: 11, color: "bg-rose-500" },
+              { label: "SBA 7(a)", sub: "days to close", value: 75, color: "bg-rose-400" },
+              { label: "SBA 7(a)", sub: "pages of docs", value: 40, color: "bg-rose-300" },
+              { label: "No-doc stack", sub: "APR", value: 0, color: "bg-emerald-500" },
+              { label: "No-doc stack", sub: "days to close", value: 14, color: "bg-emerald-500" },
+              { label: "No-doc stack", sub: "pages of docs", value: 1, color: "bg-emerald-500" },
+            ]}
+          />
+          <Callout>
+            <strong>The SBA still wins on one axis:</strong> ceiling size. SBA 7(a) tops
+            out at $5M. Stacking tops out around $500K per round. If you need $1M+,
+            SBA is the move — just expect 10+ weeks and 40 pages of paperwork.
+          </Callout>
+        </section>
+
+        {/* ═══════════════ 90-Day Playbook Timeline ═══════════════ */}
+        <section className="mt-16 border-t border-border pt-12">
+          <SectionTag>Timeline</SectionTag>
+          <h2 className="mb-5 text-3xl font-extrabold flex items-center gap-3">
+            <TrendingUp className="h-8 w-8 text-primary" /> The 90-Day Funding Playbook
+          </h2>
+          <p className="mb-4 text-lg leading-relaxed">
+            This is the actual week-by-week sequence we run with clients. Skip a step
+            and you leave $20K–$80K on the table.
+          </p>
+          <Timeline
+            steps={[
+              {
+                tag: "Days 1–14",
+                title: "Profile Audit + Credit Cleanup",
+                body:
+                  "Pull all 3 reports. Identify inquiry clutter, utilization drag, and any report-level red flags. Clean anything that'll block approvals in the next 60 days. Score optimization windows open here.",
+              },
+              {
+                tag: "Days 15–30",
+                title: "Business Foundation Build",
+                body:
+                  "LLC, EIN, NAICS code selection (matters more than most realize — wrong code = auto-deny at half of banks), business address, business phone, matching domain email, DUNS, 411 listing. All 10 items built correctly.",
+              },
+              {
+                tag: "Days 31–45",
+                title: "Bank Relationship Seasoning",
+                body:
+                  "Open primary business checking at the right bank. Run deposits through it. Establish tenure. Season for the bank tiers that require 3+ months before considering a credit app.",
+              },
+              {
+                tag: "Days 46–75",
+                title: "Round 1 Stack — 4–6 Banks Hit in Sequence",
+                body:
+                  "Apply in a specific order, on specific days of the week, for specific products. One bureau mix per wave to keep inquiries contained. Typical Round 1 nets $100K–$250K in approvals.",
+              },
+              {
+                tag: "Days 76–90",
+                title: "Liquidation + Deployment",
+                body:
+                  "Liquidate for cash needs (typical 6% fee) or keep cards open for purchases. Plan the paydown schedule so 0% promos get fully utilized before they expire. Set up for Round 2 in 6 months.",
+              },
+            ]}
+          />
+        </section>
+
+        {/* ═══════════════ Cost of Doing Nothing ═══════════════ */}
+        <section className="mt-16 border-t border-border pt-12">
+          <SectionTag>Real Math</SectionTag>
+          <h2 className="mb-5 text-3xl font-extrabold flex items-center gap-3">
+            <DollarSign className="h-8 w-8 text-primary" /> What Waiting Costs You
+          </h2>
+          <p className="mb-2 text-lg leading-relaxed">
+            Every 90 days you delay on a $100K stack at 0% while funding a real business
+            opportunity is a measurable cost. Conservative example:
+          </p>
+          <CompareCard
+            label="Same $100K deployed, different costs"
+            before={{
+              heading: "Merchant cash advance",
+              value: "$38,000",
+              sub: "1.38 factor rate × $100K, 12-month term",
+            }}
+            after={{
+              heading: "No-doc 0% stack",
+              value: "$6,000",
+              sub: "6% liquidation fee only — no interest",
+            }}
+          />
+          <p className="mb-4 text-lg leading-relaxed">
+            That's a{" "}
+            <strong>
+              <AnimatedCounter to={32000} prefix="$" />
+            </strong>{" "}
+            swing on the same capital deployment. If you run the same $100K three times a
+            year (flip → payoff → redeploy), the savings gap widens to{" "}
+            <strong>
+              <AnimatedCounter to={96000} prefix="$" />
+            </strong>{" "}
+            over 12 months.
           </p>
         </section>
 
